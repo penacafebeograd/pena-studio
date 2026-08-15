@@ -468,7 +468,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
       <div class="reveal">
         <p class="eyebrow" data-i18n="contact.eyebrow">Work With Us</p>
         <h2 data-i18n="contact.h2">An idea worth building?<em>Tell us what you're making.</em></h2>
-        <div class="cta-row"><a class="btn dark" data-i18n="contact.cta" href="mailto:penastudio@proton.me?subject=Let%27s%20talk%20%E2%80%94%20Pena%20Studio">Start a Conversation <span class="ar">↗</span></a></div>
+        <div class="cta-row"><a class="btn dark js-wa" data-i18n="contact.cta" href="https://wa.me/381659565675" target="_blank" rel="noopener">Start a Conversation <span class="ar">↗</span></a></div>
       </div>
       <form class="brief reveal" id="brief-form" onsubmit="return false">
         <p class="bh" data-i18n="form.title">Brief Us</p>
@@ -553,54 +553,37 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
   els.forEach(function(e){io.observe(e);});
 })();
 
-/* Brief form -> direct delivery to inbox (FormSubmit AJAX, no mail client) */
+/* Contact -> WhatsApp (buttons + form open a prefilled WhatsApp chat, no mail client) */
 (function(){
-  var f=document.getElementById('brief-form');
-  if(!f)return;
-  var btn=f.querySelector('.submit');
-  var status=document.createElement('p');
-  status.className='form-status';
-  f.appendChild(status);
-  var MSG={
-    en:{sending:"Sending…",ok:"Thanks — your message is on its way. We will be in touch soon.",err:"Something went wrong. Please email us directly at penastudio@proton.me.",val:"Please fill in your name, a valid email, and a short note."},
-    sr:{sending:"Šalje se…",ok:"Hvala — vaša poruka je poslata. Javićemo se uskoro.",err:"Nešto nije u redu. Pišite nam direktno na penastudio@proton.me.",val:"Unesite ime, ispravan imejl i kratku poruku."},
-    tr:{sending:"Gönderiliyor…",ok:"Teşekkürler — mesajın bize ulaştı. En kısa sürede döneceğiz.",err:"Bir şeyler ters gitti. Doğrudan penastudio@proton.me adresine yazabilirsin.",val:"Lütfen adını, geçerli bir e-posta ve kısa bir not gir."}
+  var WA='381659565675';
+  var HELLO={
+    en:{cta:"Hi Pena Studio! I'd like to start a conversation about a project.",head:"Hi Pena Studio!",name:"Name / Studio",email:"Email",intent:"Project intent",val:"Please fill in your name, a valid email, and a short note.",open:"Opening WhatsApp…"},
+    sr:{cta:"Zdravo Pena Studio! Želeo bih da započnem razgovor o projektu.",head:"Zdravo Pena Studio!",name:"Ime / studio",email:"Imejl",intent:"Cilj projekta",val:"Unesite ime, ispravan imejl i kratku poruku.",open:"Otvara se WhatsApp…"},
+    tr:{cta:"Merhaba Pena Studio! Bir proje hakkında konuşmak istiyorum.",head:"Merhaba Pena Studio!",name:"Ad / stüdyo",email:"E-posta",intent:"Proje amacı",val:"Lütfen adını, geçerli bir e-posta ve kısa bir not gir.",open:"WhatsApp açılıyor…"}
   };
-  function t(k){var l=document.documentElement.lang||'en';return (MSG[l]||MSG.en)[k]||MSG.en[k];}
-  f.addEventListener('submit',function(e){
-    e.preventDefault();
-    var v=f.querySelectorAll('input');
-    var name=(v[0]&&v[0].value||'').trim();
-    var email=(v[1]&&v[1].value||'').trim();
-    var intent=(v[2]&&v[2].value||'').trim();
-    if(!name||!email||!intent||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
-      status.textContent=t('val'); status.className='form-status err'; return;
-    }
-    status.textContent=t('sending'); status.className='form-status';
-    if(btn)btn.disabled=true;
-    fetch('https://formsubmit.co/ajax/penastudio@proton.me',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({
-        'Name / Studio':name,
-        'Email':email,
-        'Project intent':intent,
-        '_subject':'New inquiry — '+name,
-        '_template':'table',
-        '_captcha':'false'
-      })
-    }).then(function(r){return r.json();}).then(function(d){
-      if(d&&(d.success===true||d.success==='true')){
-        status.textContent=t('ok'); status.className='form-status ok'; f.reset();
-      } else {
-        status.textContent=t('err'); status.className='form-status err';
-      }
-      if(btn)btn.disabled=false;
-    }).catch(function(){
-      status.textContent=t('err'); status.className='form-status err';
-      if(btn)btn.disabled=false;
-    });
+  function L(){return HELLO[document.documentElement.lang]||HELLO.en;}
+  function waURL(text){return 'https://wa.me/'+WA+(text?('?text='+encodeURIComponent(text)):'');}
+  document.querySelectorAll('.js-wa').forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();window.open(waURL(L().cta),'_blank','noopener');});
   });
+  var f=document.getElementById('brief-form');
+  if(f){
+    var status=document.createElement('p'); status.className='form-status'; f.appendChild(status);
+    f.addEventListener('submit',function(e){
+      e.preventDefault();
+      var v=f.querySelectorAll('input');
+      var name=(v[0]&&v[0].value||'').trim();
+      var email=(v[1]&&v[1].value||'').trim();
+      var intent=(v[2]&&v[2].value||'').trim();
+      var t=L();
+      if(!name||!email||!intent||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+        status.textContent=t.val; status.className='form-status err'; return;
+      }
+      var msg=t.head+'\n'+t.name+': '+name+'\n'+t.email+': '+email+'\n'+t.intent+': '+intent;
+      status.textContent=t.open; status.className='form-status ok';
+      window.open(waURL(msg),'_blank','noopener');
+    });
+  }
 })();
 
 </script>

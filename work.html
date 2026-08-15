@@ -239,7 +239,7 @@ a{color:inherit;text-decoration:none}
     <h2 class="reveal" data-i18n="w.cta.h2">An idea worth building?</h2>
     <p class="reveal" data-i18n="w.cta.p">That's what we do best. Tell us what you're imagining, and we'll help you turn it into something real.</p>
     <div class="row reveal">
-      <a class="btn solid" href="mailto:penastudio@proton.me?subject=Let%27s%20talk%20%E2%80%94%20Pena%20Studio" data-i18n="w.cta.btn">Let's talk <span class="ar">↗</span></a>
+      <a class="btn solid js-wa" href="https://wa.me/381659565675" target="_blank" rel="noopener" data-i18n="w.cta.btn">Let's talk <span class="ar">↗</span></a>
       <span class="mail">penastudio@proton.me</span>
     </div>
   </section>
@@ -283,6 +283,17 @@ function apply(lang){
 document.querySelectorAll(".lang-btn").forEach(function(b){b.addEventListener("click",function(){apply(b.getAttribute("data-lang"));});});
 var saved="en";try{saved=localStorage.getItem("penaLang")||"en";}catch(e){}
 apply(saved);
+})();
+</script>
+<script>
+/* CTA -> WhatsApp (no mail client) */
+(function(){
+  var WA='381659565675';
+  var CTA={en:"Hi Pena Studio! I'd like to start a conversation about a project.",sr:"Zdravo Pena Studio! Želeo bih da započnem razgovor o projektu.",tr:"Merhaba Pena Studio! Bir proje hakkında konuşmak istiyorum."};
+  function url(){var t=CTA[document.documentElement.lang]||CTA.en;return 'https://wa.me/'+WA+'?text='+encodeURIComponent(t);}
+  document.querySelectorAll('.js-wa').forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();window.open(url(),'_blank','noopener');});
+  });
 })();
 </script>
 </body>
