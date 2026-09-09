@@ -9,8 +9,15 @@
  * hardcoded in four places, which is very likely a real stranger's line.
  */
 
-/** Digits only, full international format, no `+` and no spaces. e.g. '381641234567' */
-export const WHATSAPP_NUMBER = '';
+/**
+ * Digits only, full international format, no `+` and no spaces.
+ *
+ * This is the Pena Art Cafe line, verified 2026-09-09 against the cafe's own
+ * legal page (Ilgaz & Smirnova DOO, PIB 114869873). Note the Yandex Maps
+ * listing shows +381 65 9655675 with two digits transposed - that listing is
+ * wrong, not this.
+ */
+export const WHATSAPP_NUMBER = '381659565675';
 
 /** Public contact address. Leave empty to hide the email row entirely. */
 export const CONTACT_EMAIL = '';

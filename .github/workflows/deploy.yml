@@ -42,6 +42,7 @@ jobs:
         env:
           VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
           VITE_FORM_ACCESS_KEY: ${{ secrets.VITE_FORM_ACCESS_KEY }}
+          VITE_CF_BEACON_TOKEN: ${{ secrets.VITE_CF_BEACON_TOKEN }}
         run: npm run build
 
       - name: Stage the site

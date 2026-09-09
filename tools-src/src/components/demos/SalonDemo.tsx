@@ -12,6 +12,18 @@ import {
   Smartphone,
 } from 'lucide-react';
 import { Language } from '../../types';
+import {
+  demoUi,
+  sample,
+  dateish,
+  SALON_SERVICES,
+  SALON_CHAIRS,
+  SALON_SERVICE_OPTIONS,
+  WEEKDAYS,
+  MONTH_SHORT,
+  plural,
+} from './demoStrings';
+import { fill } from '../../i18n';
 
 export interface SalonBooking {
   id: string;
@@ -496,7 +508,19 @@ interface SalonDemoProps {
   lang?: Language;
 }
 
-export const SalonDemo: React.FC<SalonDemoProps> = () => {
+export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
+  const u = demoUi[lang].salon;
+  const dayIndex = (key: DayKey) => DAYS.findIndex((d) => d.key === key);
+  const dayName = (key: DayKey, short = false) => {
+    const i = dayIndex(key);
+    return short ? WEEKDAYS[lang].short[i] : WEEKDAYS[lang].long[i];
+  };
+  /** Case-correct form for "za ..." in Serbian; identical elsewhere. */
+  const dayAfter = (key: DayKey) => WEEKDAYS[lang].after[dayIndex(key)];
+  const count = (f: Parameters<typeof plural>[2], n: number) =>
+    fill(plural(n, lang, f), { n });
+  const svc = (v: string) => sample(SALON_SERVICES, v, lang);
+  const chair = (v: string) => sample(SALON_CHAIRS, v, lang);
   const [selectedDay, setSelectedDay] = useState<DayKey>('wed');
   const [schedule, setSchedule] = useState<Record<DayKey, SalonBooking[]>>(INITIAL_SCHEDULE);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -505,9 +529,9 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [newClientName, setNewClientName] = useState('');
   const [newPhone, setNewPhone] = useState('+381 64 ');
-  const [newService, setNewService] = useState('Haircut & Styling (€30)');
+  const [newServiceIndex, setNewServiceIndex] = useState(0);
   const [newTime, setNewTime] = useState('15:30');
-  const [newChair, setNewChair] = useState('Chair 1 (Ana)');
+  const [newChairKey, setNewChairKey] = useState('Chair 1 (Ana)');
 
   const currentBookings = schedule[selectedDay] || [];
 
@@ -535,15 +559,9 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
     e.preventDefault();
     if (!newClientName.trim()) return;
 
-    let price = 30;
-    if (newService.includes('€65')) price = 65;
-    else if (newService.includes('€55')) price = 55;
-    else if (newService.includes('€45')) price = 45;
-    else if (newService.includes('€35')) price = 35;
-    else if (newService.includes('€25')) price = 25;
-    else if (newService.includes('€80')) price = 80;
-
-    const cleanService = newService.replace(/\s*\(\s*€\d+\s*\)/, '');
+    const option = SALON_SERVICE_OPTIONS[newServiceIndex];
+    const price = option.price;
+    const cleanService = option.key;
 
     const startHour = parseInt(newTime.split(':')[0], 10) || 15;
     const startMin = newTime.split(':')[1] || '00';
@@ -556,7 +574,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
       phone: newPhone.trim() || '+381 64 555 0192',
       service: cleanService,
       time: timeFormatted,
-      chair: newChair,
+      chair: newChairKey,
       price,
       status: 'confirmed',
       reminderSent: false,
@@ -567,7 +585,13 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
       [selectedDay]: [...prev[selectedDay], newBooking],
     }));
 
-    showToast(`✓ Appointment added for ${newClientName} on ${selectedDay.toUpperCase()} at ${newTime}`);
+    showToast(
+      fill(u.toastAdded, {
+        name: newClientName.trim(),
+        day: dayName(selectedDay),
+        time: newTime,
+      }),
+    );
     setNewClientName('');
     setShowAddForm(false);
   };
@@ -602,8 +626,18 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
       ),
     }));
 
+    const body = fill(u.smsBody, {
+      // Accusative in Serbian ("u sredu"); unchanged in EN/TR.
+      day: dayAfter(selectedDay),
+      time: booking.time.split(' - ')[0],
+      chair: chair(booking.chair),
+    });
     showToast(
-      `✓ SMS sent to ${booking.clientName} (${booking.phone}): "Studio Milena podsetnik: Vaš termin je ${selectedDay.toUpperCase()} u ${booking.time.split(' - ')[0]} (${booking.chair}). Vidimo se!"`
+      fill(u.toastSms, {
+        name: booking.clientName,
+        phone: booking.phone,
+        body,
+      }),
     );
   };
 
@@ -627,7 +661,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#1c1e28] p-3.5 shadow-2xs">
           <div className="flex items-center justify-between text-slate-500 dark:text-stone-400 text-xs">
-            <span className="font-mono uppercase tracking-wider font-semibold">This Week Total</span>
+            <span className="font-mono uppercase tracking-wider font-semibold">{u.weekTotal}</span>
             <Calendar className="h-4 w-4 text-teal-800 dark:text-teal-400" />
           </div>
           <div className="mt-1.5 flex items-baseline gap-2">
@@ -635,29 +669,29 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
               €{weekTotal.toLocaleString()}
             </span>
             <span className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">
-              39 slots filled
+              {count(u.slotsFilled, 39)}
             </span>
           </div>
         </div>
 
         <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-[#1c1e28] p-3.5 shadow-2xs">
           <div className="flex items-center justify-between text-slate-500 dark:text-stone-400 text-xs">
-            <span className="font-mono uppercase tracking-wider font-semibold">Daily Average</span>
+            <span className="font-mono uppercase tracking-wider font-semibold">{u.dailyAverage}</span>
             <TrendingUp className="h-4 w-4 text-teal-800 dark:text-teal-400" />
           </div>
           <div className="mt-1.5 flex items-baseline gap-2">
             <span className="text-xl font-bold font-mono text-slate-900 dark:text-white">
               €{dailyAverage}
-              <span className="text-xs font-normal text-slate-500 dark:text-stone-400">/day</span>
+              <span className="text-xs font-normal text-slate-500 dark:text-stone-400">{u.perDay}</span>
             </span>
-            <span className="text-[11px] text-slate-500 dark:text-stone-400">Mon – Sun</span>
+            <span className="text-[11px] text-slate-500 dark:text-stone-400">{u.monSun}</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-teal-200/80 dark:border-teal-800/80 bg-teal-50/50 dark:bg-teal-950/30 p-3.5 shadow-2xs">
           <div className="flex items-center justify-between text-teal-900 dark:text-teal-300 text-xs">
             <span className="font-mono uppercase tracking-wider font-semibold">
-              {DAYS.find((d) => d.key === selectedDay)?.label} Total
+              {fill(u.dayTotal, { day: dayAfter(selectedDay) })}
             </span>
             <Scissors className="h-4 w-4 text-teal-800 dark:text-teal-400" />
           </div>
@@ -666,7 +700,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
               €{activeDayTotal}
             </span>
             <span className="text-[11px] text-teal-800 dark:text-teal-300 font-medium">
-              {currentBookings.length} appointments
+              {count(u.appointments, currentBookings.length)}
             </span>
           </div>
         </div>
@@ -691,27 +725,27 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
               >
                 {day.isToday && (
                   <span
-                    className={`absolute -top-1.5 text-[9px] font-mono px-1.5 py-0.2 rounded-full uppercase tracking-tighter ${
+                    className={`absolute -top-1.5 text-[9px] font-mono px-1.5 py-0.5 rounded-full uppercase tracking-tighter ${
                       isSelected
                         ? 'bg-amber-400 text-slate-900 font-bold'
                         : 'bg-teal-700 text-white'
                     }`}
                   >
-                    Today
+                    {u.today}
                   </span>
                 )}
                 <span className="text-[11px] sm:text-xs font-bold leading-tight">
-                  {day.shortLabel}
+                  {dayName(day.key, true)}
                 </span>
                 <span
                   className={`text-[10px] font-mono mt-0.5 ${
                     isSelected ? 'text-teal-100' : 'text-slate-500 dark:text-stone-400'
                   }`}
                 >
-                  {day.dayNum} Sep
+                  {day.dayNum} {MONTH_SHORT[lang]}
                 </span>
                 <span
-                  className={`mt-1 text-[10px] rounded-full px-1.5 py-0.2 font-mono ${
+                  className={`mt-1 text-[10px] rounded-full px-1.5 py-0.5 font-mono ${
                     isSelected
                       ? 'bg-teal-900/60 text-teal-100'
                       : 'bg-stone-100 dark:bg-stone-800 text-slate-600 dark:text-stone-400'
@@ -730,14 +764,17 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
-              Studio Milena — {DAYS.find((d) => d.key === selectedDay)?.label} Schedule
+              {fill(u.scheduleFor, { day: dayAfter(selectedDay) })}
             </h3>
             <span className="text-xs font-mono font-medium text-slate-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded">
-              {currentBookings.length} clients
+              {count(u.clients, currentBookings.length)}
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-stone-400 mt-0.5">
-            Click any appointment card to toggle status: <span className="font-semibold text-slate-700 dark:text-stone-300">Confirmed → In Chair → Completed</span>
+            {u.toggleHint}{' '}
+            <span className="font-semibold text-slate-700 dark:text-stone-300">
+              {u.toggleFlow}
+            </span>
           </p>
         </div>
 
@@ -747,7 +784,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
           className="inline-flex items-center gap-1.5 rounded-lg bg-teal-800 dark:bg-teal-700 px-3.5 py-2 text-xs font-semibold text-white hover:bg-teal-900 dark:hover:bg-teal-600 transition-colors shadow-2xs cursor-pointer self-start sm:self-auto"
         >
           <Plus className="h-4 w-4" />
-          <span>{showAddForm ? 'Cancel Form' : '+ Add Appointment'}</span>
+          <span>{showAddForm ? u.cancelForm : u.addAppointment}</span>
         </button>
       </div>
 
@@ -759,23 +796,23 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
         >
           <div className="flex items-center justify-between">
             <div className="text-xs font-bold text-teal-950 dark:text-teal-200">
-              Quick 10-Second Booking ({DAYS.find((d) => d.key === selectedDay)?.label})
+              {fill(u.quickBooking, { day: dayName(selectedDay) })}
             </div>
             <span className="text-[11px] font-mono text-teal-800 dark:text-teal-300">
-              Auto-calculates daily & weekly earnings
+              {u.autoCalc}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Client Name *
+                {u.clientName}
               </label>
               <input
                 type="text"
                 value={newClientName}
                 onChange={(e) => setNewClientName(e.target.value)}
-                placeholder="e.g. Maja Popović"
+                placeholder={u.clientNamePlaceholder}
                 required
                 autoFocus
                 className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3 py-2 text-xs text-slate-900 dark:text-white placeholder:text-stone-400 focus:border-teal-700 focus:outline-none"
@@ -784,7 +821,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
 
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Phone (for SMS reminder)
+                {u.phoneLabel}
               </label>
               <input
                 type="text"
@@ -797,26 +834,24 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
 
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Service
+                {u.service}
               </label>
               <select
-                value={newService}
-                onChange={(e) => setNewService(e.target.value)}
-                className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3 py-2 text-xs text-slate-900 dark:text-white focus:border-teal-700 focus:outline-none"
+                value={newServiceIndex}
+                onChange={(e) => setNewServiceIndex(Number(e.target.value))}
+                className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3 py-2 text-xs text-slate-900 dark:text-white focus:border-teal-700 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-teal-700"
               >
-                <option>Haircut & Styling (€30)</option>
-                <option>Full Color & Blowdry (€55)</option>
-                <option>Balayage & Blowdry (€65)</option>
-                <option>Men’s Cut & Beard (€25)</option>
-                <option>Root Touchup & Style (€45)</option>
-                <option>Keratin Treatment (€80)</option>
-                <option>Gel Manicure (€35)</option>
+                {SALON_SERVICE_OPTIONS.map((o, i) => (
+                  <option key={o.key} value={i}>
+                    {svc(o.key)} (€{o.price})
+                  </option>
+                ))}
               </select>
             </div>
 
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Time & Chair
+                {u.timeAndChair}
               </label>
               <div className="flex gap-1.5">
                 <input
@@ -827,13 +862,15 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
                   className="w-20 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-2.5 py-2 text-xs text-slate-900 dark:text-white text-center font-mono focus:border-teal-700 focus:outline-none"
                 />
                 <select
-                  value={newChair}
-                  onChange={(e) => setNewChair(e.target.value)}
-                  className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-2.5 py-2 text-xs text-slate-900 dark:text-white focus:border-teal-700 focus:outline-none"
+                  value={newChairKey}
+                  onChange={(e) => setNewChairKey(e.target.value)}
+                  className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-2.5 py-2 text-xs text-slate-900 dark:text-white focus:border-teal-700 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-teal-700"
                 >
-                  <option>Chair 1 (Ana)</option>
-                  <option>Chair 2 (Miloš)</option>
-                  <option>Nails (Milica)</option>
+                  {Object.keys(SALON_CHAIRS).map((key) => (
+                    <option key={key} value={key}>
+                      {chair(key)}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
@@ -845,13 +882,13 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
               onClick={() => setShowAddForm(false)}
               className="rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3.5 py-1.5 text-xs text-slate-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 cursor-pointer"
             >
-              Cancel
+              {u.cancel}
             </button>
             <button
               type="submit"
               className="rounded-lg bg-teal-800 dark:bg-teal-700 px-4 py-1.5 text-xs font-semibold text-white hover:bg-teal-900 dark:hover:bg-teal-600 transition-colors shadow-2xs cursor-pointer"
             >
-              Save to {DAYS.find((d) => d.key === selectedDay)?.shortLabel} Schedule
+              {fill(u.saveTo, { day: dayName(selectedDay, true) })}
             </button>
           </div>
         </form>
@@ -862,13 +899,13 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
         {currentBookings.length === 0 ? (
           <div className="rounded-xl border border-dashed border-stone-300 dark:border-stone-700 p-8 text-center bg-white dark:bg-[#181a24]">
             <p className="text-sm font-medium text-slate-600 dark:text-stone-300">
-              No appointments scheduled for this day yet.
+              {u.emptyDay}
             </p>
             <button
               onClick={() => setShowAddForm(true)}
               className="mt-3 text-xs font-bold text-teal-800 dark:text-teal-400 hover:underline cursor-pointer"
             >
-              + Add first appointment
+              {u.addFirst}
             </button>
           </div>
         ) : (
@@ -910,26 +947,30 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
                       }`}
                     >
                       {b.status === 'in_chair'
-                        ? 'In Chair now'
+                        ? u.statInChair
                         : b.status === 'completed'
-                        ? 'Completed & Paid'
-                        : 'Confirmed'}
+                          ? u.statCompleted
+                          : u.statConfirmed}
                     </span>
 
                     {/* Prominent Past No-Show Warning Badge */}
                     {b.pastNoShow && (
                       <span className="inline-flex items-center gap-1 rounded-md bg-amber-100 dark:bg-amber-900/60 border border-amber-300 dark:border-amber-700 px-2 py-0.5 text-[11px] font-bold text-amber-900 dark:text-amber-200">
                         <AlertTriangle className="h-3.5 w-3.5 text-amber-700 dark:text-amber-400 shrink-0" />
-                        <span>1 Past No-Show ({b.noShowDate})</span>
+                        <span>
+                          {fill(u.pastNoShow, {
+                            date: dateish(b.noShowDate ?? '', lang),
+                          })}
+                        </span>
                       </span>
                     )}
                   </div>
 
                   {/* Service, Chair & Phone */}
                   <div className="text-xs text-slate-500 dark:text-stone-400 flex flex-wrap items-center gap-2">
-                    <span className="font-medium text-slate-700 dark:text-stone-300">{b.service}</span>
+                    <span className="font-medium text-slate-700 dark:text-stone-300">{svc(b.service)}</span>
                     <span className="text-stone-300 dark:text-stone-700">•</span>
-                    <span className="text-teal-800 dark:text-teal-400 font-medium">{b.chair}</span>
+                    <span className="text-teal-800 dark:text-teal-400 font-medium">{chair(b.chair)}</span>
                     <span className="text-stone-300 dark:text-stone-700">•</span>
                     <span className="font-mono text-slate-600 dark:text-stone-400 flex items-center gap-1">
                       <Phone className="h-3 w-3 inline opacity-70" />
@@ -940,7 +981,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
                   {/* Warning advice if no-show */}
                   {b.pastNoShow && (
                     <div className="text-[11px] text-amber-800 dark:text-amber-300 italic">
-                      ⚠️ Client missed previous slot without calling. Re-confirmation required before holding chair.
+                      {u.noShowAdvice}
                     </div>
                   )}
                 </div>
@@ -953,7 +994,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
                     €{b.price}
                   </span>
                   <span className="text-[11px] text-teal-700 dark:text-teal-400 group-hover:underline hidden sm:inline">
-                    Tap to change status →
+                    {u.tapToChange}
                   </span>
                 </div>
 
@@ -963,11 +1004,11 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
                     <button
                       type="button"
                       onClick={(e) => handleSendSms(e, b)}
-                      title="Click to re-send SMS reminder"
+                      title={u.resendSms}
                       className="inline-flex items-center gap-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 px-2.5 py-1 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 transition-colors cursor-pointer"
                     >
                       <Check className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
-                      <span>Reminder sent ✓</span>
+                      <span>{u.reminderSent}</span>
                       {b.reminderSentAt && (
                         <span className="text-[10px] opacity-75">({b.reminderSentAt})</span>
                       )}
@@ -979,7 +1020,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
                       className="inline-flex items-center gap-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 px-2.5 py-1 text-[11px] font-semibold text-slate-700 dark:text-stone-300 hover:bg-teal-50 dark:hover:bg-teal-950/40 hover:border-teal-700 hover:text-teal-900 dark:hover:text-teal-200 transition-all cursor-pointer"
                     >
                       <Smartphone className="h-3.5 w-3.5 text-teal-700 dark:text-teal-400" />
-                      <span>Send SMS reminder</span>
+                      <span>{u.sendSms}</span>
                     </button>
                   )}
                 </div>
@@ -994,11 +1035,14 @@ export const SalonDemo: React.FC<SalonDemoProps> = () => {
         <div className="flex items-center gap-2">
           <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
           <span>
-            <strong className="text-slate-800 dark:text-stone-200">Studio Milena Live Counter:</strong> Changes sync instantly across reception tablet and staff mobile phones.
+            <strong className="text-slate-800 dark:text-stone-200">
+              {u.liveCounter}
+            </strong>{' '}
+            {u.liveCounterText}
           </span>
         </div>
         <span className="font-mono text-[11px] text-slate-500 dark:text-stone-400">
-          No monthly subscription • Fixed 1-day build
+          {u.noSubscription}
         </span>
       </div>
     </div>

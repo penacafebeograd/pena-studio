@@ -9,6 +9,17 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { Language } from '../../types';
+import {
+  demoUi,
+  sample,
+  dateish,
+  GYM_PLANS,
+  GYM_PLAN_OPTIONS,
+  WEEKDAYS,
+  MONTH_SHORT,
+  plural,
+} from './demoStrings';
+import { fill } from '../../i18n';
 
 export interface GymMember {
   id: string;
@@ -112,17 +123,26 @@ interface GymDemoProps {
   lang?: Language;
 }
 
-export const GymDemo: React.FC<GymDemoProps> = () => {
+export const GymDemo: React.FC<GymDemoProps> = ({ lang = 'en' }) => {
+  const u = demoUi[lang].gym;
+  const plan = (v: string) => sample(GYM_PLANS, v, lang);
+  const when = (v?: string) => dateish(v ?? '', lang);
+  const shortDay = (i: number) => WEEKDAYS[lang].short[i];
+  const count = (f: Parameters<typeof plural>[2], n: number) =>
+    fill(plural(n, lang, f), { n });
   const [gymMembers, setGymMembers] = useState<GymMember[]>(INITIAL_MEMBERS);
   const [gymSearch, setGymSearch] = useState('');
   const [checkInAlert, setCheckInAlert] = useState<string | null>(null);
+  // Tracked separately: deriving this from the message text broke as soon
+  // as the copy was translated.
+  const [alertIsError, setAlertIsError] = useState(false);
   const [activeBarDay, setActiveBarDay] = useState<string>('Wed');
 
   // New Member Form state
   const [showAddMember, setShowAddMember] = useState(false);
   const [newName, setNewName] = useState('');
   const [newPhone, setNewPhone] = useState('+381 64 ');
-  const [newPlan, setNewPlan] = useState('12-Session Pass (€35)');
+  const [newPlanIndex, setNewPlanIndex] = useState(0);
   const [newStartDate, setNewStartDate] = useState('2026-09-09');
 
   const totalWeeklyCheckins = useMemo(() => {
@@ -135,7 +155,9 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
   const handleGymCheckIn = (member: GymMember) => {
     // Keep the expired-member check-in block exactly as is
     if (member.status === 'expired') {
-      setCheckInAlert(`⚠️ Cannot check in ${member.name}: Membership expired! Collect €35 renewal first.`);
+      setAlertIsError(true);
+      setCheckInAlert(fill(u.toastBlocked, { name: member.name }));
+      window.setTimeout(() => setCheckInAlert(null), 4000);
       return;
     }
 
@@ -151,7 +173,10 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
             : m
         )
       );
-      setCheckInAlert(`✓ Check-in successful for ${member.name}. ${member.remainingPasses - 1} visits left.`);
+    setAlertIsError(false);
+      setCheckInAlert(
+        fill(u.toastOk, { name: member.name, n: member.remainingPasses - 1 }),
+      );
     } else {
       setGymMembers((prev) =>
         prev.map((m) =>
@@ -163,7 +188,8 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
             : m
         )
       );
-      setCheckInAlert(`✓ Check-in successful for ${member.name} (Monthly Unlimited active).`);
+    setAlertIsError(false);
+      setCheckInAlert(fill(u.toastOkUnlimited, { name: member.name }));
     }
 
     setTimeout(() => setCheckInAlert(null), 3500);
@@ -184,7 +210,8 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
           : m
       )
     );
-    setCheckInAlert(`✓ Membership renewed for ${member.name} (€35 collected). Ready to check in!`);
+    setAlertIsError(false);
+    setCheckInAlert(fill(u.toastRenewed, { name: member.name }));
     setTimeout(() => setCheckInAlert(null), 4000);
   };
 
@@ -205,32 +232,22 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
       )
     );
 
+    const body = fill(u.reminderBody, { first: member.name.split(' ')[0] });
+    setAlertIsError(false);
     setCheckInAlert(
-      `✓ WhatsApp reminder sent to ${member.name} (${member.phone}): "Zdravo ${member.name.split(' ')[0]}, tvoja članarina u Iron & Kettle ističe uskoro. Obnovi na pultu za nastavak treninga."`
+      fill(u.toastReminder, { name: member.name, phone: member.phone, body }),
     );
+    window.setTimeout(() => setCheckInAlert(null), 5000);
   };
 
   const handleAddMember = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newName.trim()) return;
 
-    let passes = 12;
-    let cleanPlan = '12-Session Pass';
-    let durationDays = 45;
-
-    if (newPlan.includes('Monthly Unlimited')) {
-      passes = 99;
-      cleanPlan = 'Monthly Unlimited';
-      durationDays = 30;
-    } else if (newPlan.includes('10-Session Pass')) {
-      passes = 10;
-      cleanPlan = '10-Session Pass';
-      durationDays = 30;
-    } else if (newPlan.includes('Morning Pass')) {
-      passes = 15;
-      cleanPlan = 'Morning Pass (10-14h)';
-      durationDays = 30;
-    }
+    const option = GYM_PLAN_OPTIONS[newPlanIndex];
+    const passes = option.passes;
+    const cleanPlan = option.key;
+    const durationDays = option.days;
 
     const expDate = new Date();
     expDate.setDate(expDate.getDate() + durationDays);
@@ -248,7 +265,11 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
     };
 
     setGymMembers([newMember, ...gymMembers]);
-    setCheckInAlert(`✓ New member registered: ${newName} (${cleanPlan}). Account active.`);
+    setAlertIsError(false);
+    setCheckInAlert(
+      fill(u.toastRegistered, { name: newName.trim(), plan: plan(cleanPlan) }),
+    );
+    window.setTimeout(() => setCheckInAlert(null), 4000);
     setNewName('');
     setShowAddMember(false);
   };
@@ -270,39 +291,39 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
             <div className="flex items-center gap-2">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
               <h4 className="text-xs font-mono uppercase tracking-wider font-bold text-slate-800 dark:text-stone-200">
-                Weekly Turnstile Traffic • 7-Day Attendance
+                {u.trafficTitle}
               </h4>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-stone-400 mt-0.5">
-              Live RFID & desk check-ins per day. Hover or tap bars for peak hours.
+              {u.trafficSub}
             </p>
           </div>
 
           <div className="flex items-center gap-4 text-xs">
             <div>
               <span className="text-[10px] uppercase font-mono text-slate-500 dark:text-stone-400 block">
-                Week Total
+                {u.weekTotal}
               </span>
               <span className="font-mono font-bold text-sm text-slate-900 dark:text-white">
-                {totalWeeklyCheckins} visits
+                {count(u.visits, totalWeeklyCheckins)}
               </span>
             </div>
             <div className="h-6 w-px bg-stone-200 dark:bg-stone-700"></div>
             <div>
               <span className="text-[10px] uppercase font-mono text-slate-500 dark:text-stone-400 block">
-                Daily Avg
+                {u.dailyAvg}
               </span>
               <span className="font-mono font-bold text-sm text-teal-800 dark:text-teal-400">
-                {dailyAverageCheckins} visits/day
+                {fill(u.visitsPerDay, { n: dailyAverageCheckins })}
               </span>
             </div>
             <div className="h-6 w-px bg-stone-200 dark:bg-stone-700 hidden sm:block"></div>
             <div className="hidden sm:block">
               <span className="text-[10px] uppercase font-mono text-slate-500 dark:text-stone-400 block">
-                Peak Shift
+                {u.peakShift}
               </span>
               <span className="font-mono font-semibold text-xs text-amber-700 dark:text-amber-400">
-                Thu (108 visits)
+                {fill(u.peakSuffix, { day: shortDay(3), n: 108 })}
               </span>
             </div>
           </div>
@@ -354,10 +375,10 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                           : 'text-slate-700 dark:text-stone-300'
                       }`}
                     >
-                      {item.shortDay}
+                      {shortDay(WEEKLY_CHECKINS.indexOf(item))}
                     </span>
                     <span className="block text-[9px] font-mono text-slate-400 dark:text-stone-500">
-                      {item.dateStr.split(' ')[0]}
+                      {MONTH_SHORT[lang]}
                     </span>
                   </div>
                 </div>
@@ -374,11 +395,13 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                 return (
                   <>
                     <span className="font-semibold text-slate-800 dark:text-stone-200">
-                      {stat.day} ({stat.dateStr}): {stat.count} check-ins logged
-                      {stat.isToday && ' • Today'}
+                      {WEEKDAYS[lang].long[WEEKLY_CHECKINS.indexOf(stat)]} (
+                      {dateish(stat.dateStr, lang)}):{' '}
+                      {count(u.visits, stat.count)}
+                      {stat.isToday && ` • ${demoUi[lang].salon.today}`}
                     </span>
                     <span className="font-mono text-teal-800 dark:text-teal-400 font-medium">
-                      Rush hour: {stat.peakHours}
+                      {u.rushHour}: {stat.peakHours}
                     </span>
                   </>
                 );
@@ -393,14 +416,14 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
         <div>
           <div className="flex items-center gap-2">
             <h3 className="text-base font-bold text-slate-900 dark:text-white">
-              Iron & Kettle — Front Desk Terminal
+              {u.frontDeskHeading}
             </h3>
             <span className="text-xs font-mono font-medium text-emerald-800 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 px-2 py-0.5 rounded">
-              RFID & Desk Scanner Active
+              {u.scannerActive}
             </span>
           </div>
           <p className="text-xs text-slate-500 dark:text-stone-400 mt-0.5">
-            Search member by name, phone or plan. 1-tap check-in with live visit countdown.
+            {u.searchHint}
           </p>
         </div>
 
@@ -412,7 +435,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
               type="text"
               value={gymSearch}
               onChange={(e) => setGymSearch(e.target.value)}
-              placeholder="Search (e.g. Luka, 064)..."
+              placeholder={u.searchPlaceholder}
               className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] pl-8 pr-3 py-1.5 text-xs text-slate-900 dark:text-white placeholder:text-stone-400 focus:border-teal-700 focus:outline-none"
             />
           </div>
@@ -424,7 +447,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
             className="inline-flex items-center gap-1.5 rounded-lg bg-teal-800 dark:bg-teal-700 px-3 py-1.5 text-xs font-semibold text-white hover:bg-teal-900 dark:hover:bg-teal-600 transition-colors shadow-2xs cursor-pointer shrink-0"
           >
             <UserPlus className="h-3.5 w-3.5" />
-            <span>{showAddMember ? 'Close Form' : '+ New Member'}</span>
+            <span>{showAddMember ? u.cancelForm : u.registerMember}</span>
           </button>
         </div>
       </div>
@@ -438,23 +461,23 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
           <div className="flex items-center justify-between pb-1 border-b border-teal-200/80 dark:border-teal-800">
             <div className="text-xs font-bold text-teal-950 dark:text-teal-200 flex items-center gap-1.5">
               <UserPlus className="h-4 w-4 text-teal-800 dark:text-teal-400" />
-              <span>Register New Member at Front Desk (Takes 15 seconds)</span>
+              <span>{u.registerTitle}</span>
             </div>
             <span className="text-[11px] font-mono text-teal-800 dark:text-teal-300">
-              Collect payment at counter
+              {u.collectPayment}
             </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Full Name *
+                {u.fullName}
               </label>
               <input
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                placeholder="e.g. Milan Vasić"
+                placeholder={u.namePlaceholder}
                 required
                 autoFocus
                 className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3 py-2 text-xs text-slate-900 dark:text-white placeholder:text-stone-400 focus:border-teal-700 focus:outline-none"
@@ -463,7 +486,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
 
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Phone Number (for SMS & WhatsApp) *
+                {u.phone}
               </label>
               <input
                 type="text"
@@ -477,23 +500,24 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
 
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Membership Plan *
+                {u.plan}
               </label>
               <select
-                value={newPlan}
-                onChange={(e) => setNewPlan(e.target.value)}
-                className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3 py-2 text-xs text-slate-900 dark:text-white focus:border-teal-700 focus:outline-none"
+                value={newPlanIndex}
+                onChange={(e) => setNewPlanIndex(Number(e.target.value))}
+                className="w-full rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3 py-2 text-xs text-slate-900 dark:text-white focus:border-teal-700 focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-teal-700"
               >
-                <option>12-Session Pass (€35)</option>
-                <option>Monthly Unlimited (€45)</option>
-                <option>10-Session Pass (€30)</option>
-                <option>Morning Pass (10-14h) (€25)</option>
+                {GYM_PLAN_OPTIONS.map((o, i) => (
+                  <option key={o.key} value={i}>
+                    {plan(o.key)} (€{o.price})
+                  </option>
+                ))}
               </select>
             </div>
 
             <div>
               <label className="block text-[11px] font-semibold text-slate-800 dark:text-stone-200 mb-1">
-                Start Date
+                {u.startDate}
               </label>
               <input
                 type="date"
@@ -510,13 +534,13 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
               onClick={() => setShowAddMember(false)}
               className="rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-[#1c1e28] px-3.5 py-1.5 text-xs text-slate-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 cursor-pointer"
             >
-              Cancel
+              {u.cancel}
             </button>
             <button
               type="submit"
               className="rounded-lg bg-teal-800 dark:bg-teal-700 px-4 py-1.5 text-xs font-semibold text-white hover:bg-teal-900 dark:hover:bg-teal-600 transition-colors shadow-2xs cursor-pointer"
             >
-              Register & Issue Digital Pass
+              {u.save}
             </button>
           </div>
         </form>
@@ -526,12 +550,12 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
       {checkInAlert && (
         <div
           className={`rounded-xl border p-3.5 text-xs font-semibold shadow-md flex items-start gap-2.5 transition-all animate-in fade-in slide-in-from-top-2 ${
-            checkInAlert.includes('Cannot check in')
+            alertIsError
               ? 'border-red-300 dark:border-red-800 bg-red-50 dark:bg-red-950/80 text-red-950 dark:text-red-200'
               : 'border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-950/80 text-teal-950 dark:text-teal-200'
           }`}
         >
-          {checkInAlert.includes('Cannot check in') ? (
+          {alertIsError ? (
             <AlertCircle className="h-4 w-4 text-red-700 dark:text-red-400 shrink-0 mt-0.5" />
           ) : (
             <CheckCircle2 className="h-4 w-4 text-teal-700 dark:text-teal-400 shrink-0 mt-0.5" />
@@ -551,7 +575,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
         {filteredMembers.length === 0 ? (
           <div className="rounded-xl border border-dashed border-stone-300 dark:border-stone-700 p-8 text-center bg-white dark:bg-[#181a24]">
             <p className="text-sm font-medium text-slate-600 dark:text-stone-300">
-              No members found matching "{gymSearch}".
+              {u.noMembers}
             </p>
             <button
               onClick={() => {
@@ -560,7 +584,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
               }}
               className="mt-3 text-xs font-bold text-teal-800 dark:text-teal-400 hover:underline cursor-pointer"
             >
-              + Register as new member
+              {u.registerMember}
             </button>
           </div>
         ) : (
@@ -605,24 +629,30 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                           : 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300'
                       }`}
                     >
-                      {m.status}
+                      {m.status === 'expired'
+                        ? u.stExpired
+                        : m.status === 'expiring'
+                          ? u.stExpiring
+                          : u.stActive}
                     </span>
 
                     {/* Renewal reminder tag */}
                     {m.renewalReminderSent && (
-                      <span className="inline-flex items-center gap-1 rounded bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-800 px-1.5 py-0.2 text-[10px] font-medium text-emerald-800 dark:text-emerald-300">
+                      <span className="inline-flex items-center gap-1 rounded bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-800 px-1.5 py-0.5 text-[10px] font-medium text-emerald-800 dark:text-emerald-300">
                         <Check className="h-3 w-3 text-emerald-600" />
-                        <span>Reminder sent ({m.renewalReminderSentAt})</span>
+                        <span>
+                          {u.renewalSent} ({m.renewalReminderSentAt})
+                        </span>
                       </span>
                     )}
                   </div>
 
                   {/* Plan details & expiry */}
                   <div className="text-xs text-slate-500 dark:text-stone-400 mt-1 flex flex-wrap items-center gap-2">
-                    <span className="font-medium text-slate-700 dark:text-stone-300">{m.plan}</span>
+                    <span className="font-medium text-slate-700 dark:text-stone-300">{plan(m.plan)}</span>
                     <span className="text-stone-300 dark:text-stone-700">•</span>
                     <span className={m.status === 'expired' ? 'text-red-700 dark:text-red-400 font-semibold' : ''}>
-                      {m.expiresAt}
+                      {when(m.expiresAt)}
                     </span>
                     <span className="text-stone-300 dark:text-stone-700">•</span>
                     <span className="font-mono text-slate-500 dark:text-stone-400">{m.phone}</span>
@@ -635,10 +665,12 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                 {/* Visits countdown */}
                 <div className="text-left sm:text-right pr-1">
                   <span className="block text-xs font-mono font-bold text-slate-900 dark:text-white">
-                    {m.remainingPasses >= 90 ? 'Unlimited' : `${m.remainingPasses} visits left`}
+                    {m.remainingPasses >= 90
+                      ? u.unlimited
+                      : count(u.visitsLeft, m.remainingPasses)}
                   </span>
                   <span className="text-[10px] text-slate-400 dark:text-stone-500">
-                    Last: {m.lastVisit}
+                    {u.lastVisit} {when(m.lastVisit)}
                   </span>
                 </div>
 
@@ -649,11 +681,11 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                       <button
                         type="button"
                         onClick={(e) => handleSendRenewalReminder(e, m)}
-                        title="Click to re-send reminder"
+                        title={u.resendRenewal}
                         className="inline-flex items-center gap-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 px-2.5 py-1.5 text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100 transition-colors cursor-pointer"
                       >
                         <Check className="h-3.5 w-3.5 text-emerald-600" />
-                        <span>Reminder sent ✓</span>
+                        <span>{u.renewalSent}</span>
                       </button>
                     ) : (
                       <button
@@ -662,7 +694,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                         className="inline-flex items-center gap-1 rounded-lg bg-stone-100 dark:bg-stone-800 border border-stone-300 dark:border-stone-700 px-2.5 py-1.5 text-[11px] font-semibold text-slate-700 dark:text-stone-300 hover:bg-amber-50 dark:hover:bg-amber-950/40 hover:border-amber-500 hover:text-amber-900 dark:hover:text-amber-200 transition-all cursor-pointer"
                       >
                         <MessageCircle className="h-3.5 w-3.5 text-amber-700 dark:text-amber-400" />
-                        <span>Send renewal reminder</span>
+                        <span>{u.sendRenewal}</span>
                       </button>
                     )}
                   </div>
@@ -673,16 +705,16 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                   <div className="flex items-center gap-1.5">
                     <button
                       onClick={() => handleGymCheckIn(m)}
-                      title="Test expired lock block"
+                      title={u.expiredLockTitle}
                       className="rounded-lg bg-stone-200 dark:bg-stone-700 px-2.5 py-1.5 text-xs font-semibold text-slate-700 dark:text-stone-200 hover:bg-stone-300 transition-colors cursor-pointer"
                     >
-                      Check In
+                      {u.checkIn}
                     </button>
                     <button
                       onClick={() => handleRenewPass(m)}
                       className="rounded-lg bg-red-700 hover:bg-red-800 text-white px-3 py-1.5 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
                     >
-                      Renew Pass (€35)
+                      {u.renewPass} (€35)
                     </button>
                   </div>
                 ) : (
@@ -690,7 +722,7 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
                     onClick={() => handleGymCheckIn(m)}
                     className="rounded-lg bg-teal-800 dark:bg-teal-700 hover:bg-teal-900 dark:hover:bg-teal-600 text-white px-3.5 py-1.5 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
                   >
-                    Check In
+                    {u.checkIn}
                   </button>
                 )}
               </div>
@@ -704,11 +736,14 @@ export const GymDemo: React.FC<GymDemoProps> = () => {
         <div className="flex items-center gap-2">
           <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
           <span>
-            <strong className="text-slate-800 dark:text-stone-200">Iron & Kettle Front Desk:</strong> Eliminates lost paper card disputes and stops expired members automatically.
+            <strong className="text-slate-800 dark:text-stone-200">
+              {u.frontDesk}
+            </strong>{' '}
+            {u.frontDeskText}
           </span>
         </div>
         <span className="font-mono text-[11px] text-slate-500 dark:text-stone-400">
-          No monthly SaaS license • Built in 24 hours
+          {u.noLicense}
         </span>
       </div>
     </div>
