@@ -3,19 +3,19 @@
  *
  * ⚠️  REPLACE THE PLACEHOLDERS BELOW BEFORE TAKING ENQUIRIES SERIOUSLY.
  *
- * While `WHATSAPP_NUMBER` is left empty, every WhatsApp button falls back to
- * the on-page contact form instead of dialling a number that isn't yours.
- * That is deliberate: the AI-generated draft shipped with `+381 64 123 4567`
- * hardcoded in four places, which is very likely a real stranger's line.
+ * If `WHATSAPP_NUMBER` is ever emptied, every WhatsApp button falls back to
+ * the on-page contact form rather than dialling a number that isn't yours.
+ * That matters: the generated draft shipped with two unverified numbers
+ * hardcoded across six places, either of which could be a stranger's line.
  */
 
 /**
  * Digits only, full international format, no `+` and no spaces.
  *
  * This is the Pena Art Cafe line, verified 2026-09-09 against the cafe's own
- * legal page (Ilgaz & Smirnova DOO, PIB 114869873). Note the Yandex Maps
- * listing shows +381 65 9655675 with two digits transposed - that listing is
- * wrong, not this.
+ * legal page (Ilgaz & Smirnova DOO, PIB 114869873). Note that the Yandex Maps
+ * listing for the cafe has two digits transposed; that listing is wrong, not
+ * this constant. Worth correcting at the source.
  */
 export const WHATSAPP_NUMBER = '381659565675';
 

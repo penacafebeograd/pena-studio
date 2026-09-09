@@ -17,19 +17,20 @@ npm run dev      # http://localhost:3000/tools/
 npm run build    # typecheck + build into ../tools + emit the static demo routes
 ```
 
-## Before you take real enquiries
+## Contact details
 
 Everything that needs a real value lives in **`src/config.ts`**:
 
-| Constant           | Status                | What happens while it is empty                            |
-| ------------------ | --------------------- | --------------------------------------------------------- |
-| `WHATSAPP_NUMBER`  | **empty — set this**  | WhatsApp CTAs fall back to the contact form / home         |
-| `CONTACT_EMAIL`    | **empty — optional**  | The email row is hidden                                    |
-| `FORM_ENDPOINT`    | env, optional         | Form hands off to WhatsApp instead of POSTing              |
+| Constant          | Status                        | Behaviour when empty                        |
+| ----------------- | ----------------------------- | ------------------------------------------- |
+| `WHATSAPP_NUMBER` | set — the Pena Art Cafe line  | CTAs fall back to the contact form          |
+| `CONTACT_EMAIL`   | empty, optional               | The email row is hidden                     |
+| `FORM_ENDPOINT`   | env, optional                 | Form hands off to WhatsApp instead of POST  |
 
-The generated draft hardcoded `+381 64 123 4567` in four places and
-`+381 62 816 9996` in two more. Neither was verified, so both were removed
-rather than shipped — a wrong number sends customers to a stranger.
+The generated draft hardcoded two different unverified phone numbers, in six
+places between them. Neither was checked against anything, so both were
+removed rather than shipped — a wrong number sends customers to a stranger.
+The digits are deliberately not repeated here: this repository is public.
 
 ### Contact form
 
@@ -53,10 +54,26 @@ GitHub Pages has no SPA rewrites, so `scripts/emit-routes.mjs` copies the built
 shell to those paths (plus `404.html`) after every build. Deep links and shared
 URLs therefore load a real file.
 
+## Language
+
+Serbian is the default. Only an explicit Turkish browser preference switches
+away from it — an English preference deliberately does not, because Windows
+ships an English locale on most machines in Serbia and honouring it would
+hand the English page to the Belgrade owners this is written for. A visitor's
+own choice wins and persists in `localStorage`.
+
+The demo apps are translated too: `src/components/demos/demoStrings.ts` holds
+their chrome plus lookups for the sample data, with Serbian plural forms and
+accusative weekdays.
+
+## Analytics
+
+Cloudflare Web Analytics, injected by a Vite plugin only when
+`VITE_CF_BEACON_TOKEN` is set as a repo secret. No cookies, no fingerprinting,
+so no consent banner. Nothing is emitted without a token.
+
 ## Known gaps
 
-- **The two demo apps are English-only.** `src/components/demos/*` (~1,700
-  lines) still has its labels hardcoded. The whole site *shell* — nav, hero,
-  pricing, FAQ, contact, modal chrome, standalone demo page — is fully EN/SR/TR.
 - `public/og-image.jpg` is ~700 KB; worth compressing.
-- Analytics is not wired up (no Plausible instance exists yet).
+- The demo businesses ("Studio Milena", "Iron & Kettle") are invented. The
+  strongest replacement is a real client, once there is one.
