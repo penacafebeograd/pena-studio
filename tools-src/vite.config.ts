@@ -22,7 +22,9 @@ function cloudflareAnalytics(token?: string): Plugin {
         {
           tag: 'script',
           attrs: {
-            defer: true,
+            // Matches the snippet Cloudflare hands out verbatim; module scripts
+            // are deferred by default.
+            type: 'module',
             src: 'https://static.cloudflareinsights.com/beacon.min.js',
             'data-cf-beacon': JSON.stringify({ token }),
           },
