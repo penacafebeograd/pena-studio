@@ -19,9 +19,9 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
         'Messy paper appointment books, missed WhatsApp messages, and broken spreadsheets slow your team down. See what a simple custom tool solves.',
     },
     'how-it-works': {
-      title: '24-Hour Process & Day-by-Day Workflow — Pena Tools',
+      title: 'How it works: design first, then built — Pena Tools',
       description:
-        '30-minute talk, we build your custom app that night, and you start using it tomorrow. No technical jargon, no months of waiting.',
+        'A 30-minute talk, then two or three finished screen designs of your app to approve or change. Only once you say yes is it built, and you have it the next day.',
     },
     demos: {
       title: 'Interactive Live Demos (Salon & Gym Apps) — Pena Tools',
@@ -56,9 +56,9 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
         'Iskrzane sveske za zakazivanje, izgubljene WhatsApp poruke i prekomplikovane tabele usporavaju rad. Pogledajte šta rešava jednostavna aplikacija.',
     },
     'how-it-works': {
-      title: 'Kako radimo: Proces od 24 sata — Pena Tools',
+      title: 'Kako radimo: prvo izgled, pa izrada — Pena Tools',
       description:
-        '30 minuta razgovora, pravimo aplikaciju te noći, koristite je već sutra. Bez programerskih termina i višemesečnog čekanja.',
+        'Razgovor od 30 minuta, pa dva do tri gotova prikaza ekrana koje odobravate ili menjate. Tek kada kažete da je u redu, pravimo aplikaciju - i dobijate je sutradan.',
     },
     demos: {
       title: 'Interaktivni primeri uživo (Saloni i teretane) — Pena Tools',
@@ -93,9 +93,9 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
         'Karışık randevu defterleri, unutulan WhatsApp mesajları ve bozulan Excel tabloları işinizi yavaşlatmasın.',
     },
     'how-it-works': {
-      title: 'Nasıl Çalışır: 24 Saatte Süreç — Pena Tools',
+      title: 'Nasıl çalışır: önce tasarım, sonra yapım — Pena Tools',
       description:
-        '30 dakikalık görüşme, o gece kodlama, ertesi gün kullanım. Teknik terimler yok, aylarca bekleme yok.',
+        '30 dakikalık görüşme, ardından onaylayacağınız veya değiştireceğiniz iki üç bitmiş ekran tasarımı. Ancak siz onayladıktan sonra kodlanır ve ertesi gün elinizde olur.',
     },
     demos: {
       title: 'İnteraktif Canlı Demolar (Kuaför & Spor Salonu) — Pena Tools',
