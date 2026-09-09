@@ -2,6 +2,15 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* The wordmark is set type, not an image: Barlow SemiBold with the tracking
+   the logo was designed at. Falls back to the system stack if the webfont
+   has not arrived yet. */
+.wordmark {
+  font-family: 'Barlow', ui-sans-serif, system-ui, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+}
+
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;

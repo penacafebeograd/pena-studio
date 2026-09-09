@@ -23,14 +23,10 @@ export const Footer: React.FC<FooterProps> = ({ t, lang, onLanguageChange }) => 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-8 border-b border-slate-800 dark:border-stone-800">
           {/* Brand & Mission */}
           <div className="max-w-md">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-teal-600 text-white font-mono text-sm font-semibold">
-                P
-              </div>
-              <span className="text-base font-bold text-white tracking-tight">
-                Pena Tools
-              </span>
-            </div>
+            <span className="wordmark text-[18px] leading-none">
+              <span className="text-white">PENA</span>{' '}
+              <span className="text-teal-400">TOOLS</span>
+            </span>
             <p className="mt-3 text-xs text-slate-400 leading-relaxed">
               {t.footer.tagline}
             </p>

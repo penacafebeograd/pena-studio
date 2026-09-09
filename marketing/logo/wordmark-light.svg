@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 64" width="420" height="64">
+  <!-- Barlow SemiBold, SIL OFL. Convert to outlines before sending to a
+       printer or anyone who will not have the font installed. -->
+  <text x="0" y="46"
+        font-family="Barlow, 'Helvetica Neue', Arial, sans-serif"
+        font-size="48" font-weight="600" letter-spacing="4.3">
+    <tspan fill="#0f1115">PENA</tspan><tspan fill="#0d9488" dx="10">TOOLS</tspan>
+  </text>
+</svg>

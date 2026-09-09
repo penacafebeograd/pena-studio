@@ -51,14 +51,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-800 dark:bg-teal-700 text-white font-mono text-sm font-semibold tracking-tight shadow-xs">
-            P
-          </div>
           <div className="flex flex-col">
-            <span className="text-base font-semibold tracking-tight text-slate-900 dark:text-white">
-              Pena Tools
+            <span className="wordmark text-[19px] leading-none">
+              <span className="text-slate-900 dark:text-white">PENA</span>{' '}
+              <span className="text-teal-700 dark:text-teal-400">TOOLS</span>
             </span>
-            <span className="text-[11px] font-normal text-slate-500 dark:text-stone-400 hidden sm:inline">
+            <span className="mt-1 text-[11px] font-normal text-slate-500 dark:text-stone-400 hidden sm:inline">
               {t.ui.brandTagline}
             </span>
           </div>
