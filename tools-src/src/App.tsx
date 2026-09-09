@@ -32,11 +32,13 @@ const pickInitialLanguage = (): Language => {
     // Storage blocked - fall through to browser preference.
   }
 
+  // Deliberately NOT honouring an English browser preference. Windows ships
+  // with an English locale on most machines in Serbia, so treating en-US as
+  // "this visitor wants English" would hand the English page to exactly the
+  // Belgrade business owners this is written for. Turkish is explicit enough
+  // to trust; everything else gets Serbian, and the switcher is one tap away.
   for (const tag of navigator.languages ?? [navigator.language]) {
-    const code = tag?.toLowerCase().split('-')[0];
-    if (code === 'sr' || code === 'hr' || code === 'bs' || code === 'me') return 'sr';
-    if (code === 'tr') return 'tr';
-    if (code === 'en') return 'en';
+    if (tag?.toLowerCase().startsWith('tr')) return 'tr';
   }
   return 'sr';
 };
