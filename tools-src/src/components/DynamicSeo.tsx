@@ -176,7 +176,7 @@ export const DynamicSeo: React.FC<DynamicSeoProps> = ({ lang, demoRoute }) => {
       const origin = window.location.origin;
       // The app is served from a subpath, so BASE_URL (not the bare origin)
       // is what makes the OG image resolvable for social crawlers.
-      const absoluteOgImageUrl = `${origin}${import.meta.env.BASE_URL}og-image.jpg`;
+      const absoluteOgImageUrl = `${origin}${import.meta.env.BASE_URL}og-image.png`;
 
       const updateMetaContent = (selector: string, attr: 'content' | 'href', val: string) => {
         const el = document.querySelector(selector);
