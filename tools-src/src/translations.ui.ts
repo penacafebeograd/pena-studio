@@ -134,7 +134,7 @@ export const uiStrings: Record<Language, UiContent> = {
     directUrl: 'Direct link',
 
     fixedFeeBadge: 'Fixed 1-day project fee',
-    freeKickoff: 'Free 30-minute kickoff • No commitment',
+    freeKickoff: 'Free call + design • You only pay if you approve',
     includedTitle: 'What is included in the price:',
     neverPayTitle: 'What you will never pay for:',
 
@@ -223,7 +223,7 @@ export const uiStrings: Record<Language, UiContent> = {
     directUrl: 'Direktan link',
 
     fixedFeeBadge: 'Fiksna cena za jednodnevni projekat',
-    freeKickoff: 'Besplatan uvodni razgovor od 30 min • Bez obaveze',
+    freeKickoff: 'Razgovor i izgled besplatno • Plaćate tek kad odobrite',
     includedTitle: 'Šta je uključeno u cenu:',
     neverPayTitle: 'Šta nikada nećete plaćati:',
 
@@ -313,7 +313,7 @@ export const uiStrings: Record<Language, UiContent> = {
     directUrl: 'Doğrudan bağlantı',
 
     fixedFeeBadge: 'Bir günlük proje için sabit ücret',
-    freeKickoff: 'Ücretsiz 30 dakikalık başlangıç görüşmesi • Taahhüt yok',
+    freeKickoff: 'Görüşme ve tasarım ücretsiz • Onaylarsanız ödersiniz',
     includedTitle: 'Fiyata dahil olanlar:',
     neverPayTitle: 'Asla ödemeyeceğiniz şeyler:',
 

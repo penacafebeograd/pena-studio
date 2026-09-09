@@ -29,7 +29,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ t, onGetFreeDemo }) => {
         </FadeIn>
 
         {/* 3 Numbered Steps Grid */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           {t.howItWorks.steps.map((step, idx) => (
             <FadeIn
               key={idx}

@@ -19,7 +19,7 @@ export const translations: Record<Language, TranslationContent> = {
       ctaPrimary: 'Get a free demo',
       ctaSecondary: 'Try live demos',
       trustPoints: [
-        'Delivered in 24 hours',
+        'You approve the design first',
         'Fixed fee €250 – €750',
         'You own it — 100% no lock-in',
       ],
@@ -71,41 +71,53 @@ export const translations: Record<Language, TranslationContent> = {
       ],
     },
     howItWorks: {
-      eyebrow: 'Clear 3-Step Process',
-      title: 'How it works: from idea to live tool in 24 hours',
+      eyebrow: 'Clear 4-Step Process',
+      title: 'How it works: you see the design before anything is built',
       subtitle:
-        'No endless meetings. No 40-page requirement documents. You show me what you track, I build it.',
+        'No endless meetings. No 40-page requirement documents. You tell me what you track, I show you the screens, and only then do I build.',
       steps: [
         {
           stepNumber: '01',
-          title: 'We talk (30 min)',
-          timeframe: 'Morning or afternoon call',
+          title: 'You tell me the idea',
+          timeframe: '30-minute call',
           description:
-            'A 30-minute phone call or WhatsApp screen share. You show me your notebook, your chat, or your sheet and tell me what drives you crazy.',
+            'A phone call or WhatsApp screen share. You show me your notebook, your chat, or your sheet and tell me what drives you crazy.',
           details: [
             'No technical preparation required',
-            'I ask about your daily routine',
-            'We agree on exactly what belongs on the screen',
+            'We talk in plain language about your day',
+            'We agree on what belongs on the screen',
           ],
         },
         {
           stepNumber: '02',
-          title: 'We build it that night',
-          timeframe: 'Overnight delivery',
+          title: 'I send you the design',
+          timeframe: 'Same day',
           description:
-            'I code a clean, fast web app tailored to your exact business workflow. Only the buttons and fields you actually use.',
+            'Two or three real screen designs of your app - your services, your staff, your prices. Not a template: the actual thing you will be tapping.',
           details: [
-            'Optimized for mobile, tablet, and counter PC',
-            'Fast loading, no slow bloated menus',
-            'Automatic backups and simple data view',
+            '2-3 finished screens, not sketches',
+            'Your own data used as the example',
+            'You see it before a single line is written',
           ],
         },
         {
           stepNumber: '03',
-          title: 'You use it tomorrow',
-          timeframe: 'Next day morning',
+          title: 'You ask for changes',
+          timeframe: 'Same day',
           description:
-            'You get a private link. Tap "Add to Home Screen" on your phone or tablet and start using it immediately with your staff.',
+            'Move a button, rename a field, drop something you will never use, add something I missed. Changes at this stage are free and instant.',
+          details: [
+            'Nothing gets built until you approve',
+            'Changing a picture is cheap, changing an app is not',
+            'As many rounds as it takes to get it right',
+          ],
+        },
+        {
+          stepNumber: '04',
+          title: 'You get it the next day',
+          timeframe: 'Next day',
+          description:
+            'Once you approve the design I build it in a day. You get a private link, tap "Add to Home Screen", and start using it with your staff.',
           details: [
             'Short 3-minute video showing how it works',
             '14 days of free minor adjustments included',
@@ -171,7 +183,9 @@ export const translations: Record<Language, TranslationContent> = {
       includedItems: [
         'Complete custom web application tailored to your business',
         'Works seamlessly on iPhone, Android, iPad, and counter PC',
-        'Personal 30-minute kickoff & 1-day turnaround',
+        '2-3 finished screen designs to approve before anything is built',
+        'Free design revisions until you are happy with it',
+        'Personal 30-minute kickoff, built the day you approve',
         '3-minute custom staff video tutorial',
         '14 days of free minor tweaks and text adjustments',
         'Full export of all your customer & appointment data anytime',
@@ -193,7 +207,7 @@ export const translations: Record<Language, TranslationContent> = {
         {
           question: 'How can you realistically build an app in a single day?',
           answer:
-            'Because we don’t build giant, bloated systems with features you will never use. We build hyper-focused tools designed solely for your specific daily routine. Since I do not carry corporate overhead or agency bureaucracy, a focused 8-hour sprint is more than enough to deliver a clean, battle-tested tool.',
+            'Because by the time I start building, every decision is already made. You approve two or three finished screen designs first, so the build day is pure execution - no guessing, no rewrites, no "actually, can we move that". Add the fact that these are hyper-focused tools for one daily routine rather than bloated systems, and no agency overhead, and a focused day is more than enough.',
         },
         {
           question: 'What if I need changes or extra features later on?',
@@ -269,7 +283,7 @@ export const translations: Record<Language, TranslationContent> = {
       ctaPrimary: 'Zatražite besplatan demo',
       ctaSecondary: 'Pogledajte primere uživo',
       trustPoints: [
-        'Isporuka za 24 sata',
+        'Prvo odobrite izgled',
         'Fiksna cena €250 – €750',
         'Aplikacija je vaša — bez pretplate i ugovora',
       ],
@@ -321,41 +335,53 @@ export const translations: Record<Language, TranslationContent> = {
       ],
     },
     howItWorks: {
-      eyebrow: 'Jasna 3 koraka',
-      title: 'Kako funkcioniše: od ideje do gotovog alata za 24h',
+      eyebrow: 'Jasna 4 koraka',
+      title: 'Kako funkcioniše: izgled vidite pre nego što se išta napravi',
       subtitle:
-        'Bez beskrajnih sastanaka i bez nerazumljivih tehničkih termina. Pokažete mi šta vodite, a ja to napravim.',
+        'Bez beskrajnih sastanaka i nerazumljivih tehničkih termina. Kažete mi šta vodite, ja vam pokažem ekrane, i tek onda pravim aplikaciju.',
       steps: [
         {
           stepNumber: '01',
-          title: 'Čujemo se (30 min)',
-          timeframe: 'Jutarnji ili popodnevni razgovor',
+          title: 'Ispričate mi ideju',
+          timeframe: 'Razgovor od 30 min',
           description:
             'Kratak poziv ili WhatsApp razgovor. Pokažete mi vašu svesku, tabelu ili poruke i kažete mi šta vas najviše usporava.',
           details: [
             'Nije vam potrebno nikakvo tehničko predznanje',
             'Pričamo normalnim jezikom o vašem radnom danu',
-            'Zajedno definišemo samo ono što vam stvarno treba',
+            'Zajedno definišemo šta treba da stoji na ekranu',
           ],
         },
         {
           stepNumber: '02',
-          title: 'Pravim aplikaciju preko noći',
-          timeframe: 'Izrada u toku večeri',
+          title: 'Šaljem vam izgled aplikacije',
+          timeframe: 'Isti dan',
           description:
-            'Pišem čist i brz veb program prilagođen tačno vašim koracima. Samo ona dugmad i polja koja koristite.',
+            'Dva do tri prava prikaza ekrana vaše aplikacije - vaše usluge, vaši radnici, vaše cene. Nije šablon, nego tačno ono što ćete dodirivati.',
           details: [
-            'Prilagođeno za telefon, tablet i računar na pultu',
-            'Otvara se u sekundi, bez komplikovanih menija',
-            'Automatsko čuvanje podataka i jednostavan pregled',
+            '2-3 gotova ekrana, ne skice',
+            'Kao primer koriste se vaši podaci',
+            'Vidite sve pre nego što je napisana ijedna linija koda',
           ],
         },
         {
           stepNumber: '03',
-          title: 'Koristite je već sutra',
-          timeframe: 'Sledećeg jutra',
+          title: 'Tražite izmene',
+          timeframe: 'Isti dan',
           description:
-            'Dobijate vaš privatni link. Sačuvate ga na početni ekran telefona ili tableta i odmah počinjete sa radom.',
+            'Pomerite dugme, promenite naziv polja, izbacite ono što nikada nećete koristiti, dodajte ono što sam propustio. Izmene u ovoj fazi su besplatne i odmah vidljive.',
+          details: [
+            'Ništa se ne pravi dok vi ne kažete da je u redu',
+            'Izmena slike je jeftina, izmena gotove aplikacije nije',
+            'Ponavljamo dok ne bude tačno kako treba',
+          ],
+        },
+        {
+          stepNumber: '04',
+          title: 'Dobijate je već sutradan',
+          timeframe: 'Sutradan',
+          description:
+            'Kada odobrite izgled, izrada traje jedan dan. Dobijate privatni link, sačuvate ga na početni ekran i odmah počinjete sa radom.',
           details: [
             'Kratak video od 3 minuta koji objašnjava sve',
             '14 dana besplatnih sitnih izmena uključeno',
@@ -421,7 +447,9 @@ export const translations: Record<Language, TranslationContent> = {
       includedItems: [
         'Kompletna aplikacija napravljena tačno po vašem poslu',
         'Savršeno radi na mobilnom, tabletu i računaru',
-        'Uvodni razgovor od 30 min i isporuka za 1 dan',
+        '2-3 gotova prikaza ekrana koje odobravate pre izrade',
+        'Besplatne izmene izgleda dok ne budete zadovoljni',
+        'Uvodni razgovor od 30 min, izrada čim odobrite',
         'Kratak 3-minutni video za vas i vaše zaposlene',
         '14 dana besplatnih sitnih dorada i prilagođavanja',
         'Preuzimanje svih vaših podataka u Eksel kad god poželite',
@@ -443,7 +471,7 @@ export const translations: Record<Language, TranslationContent> = {
         {
           question: 'Kako je moguće napraviti aplikaciju za samo jedan dan?',
           answer:
-            'Zato što ne pravimo prekomplikovane programe sa stotinu funkcija koje nikada nećete otvoriti. Pravimo precizan, čist alat fokusiran samo na vašu dnevnu rutinu. Kako ne radim kroz birokratiju velikih agencija, fokusiran rad od jednog dana je sasvim dovoljan za stabilan i brz program.',
+            'Zato što su do početka izrade sve odluke već donete. Prvo odobrite dva do tri gotova prikaza ekrana, pa je dan izrade čisto izvođenje - bez nagađanja, bez prepravki, bez „a može li ovo ipak drugačije”. Dodajte na to da pravimo precizan alat za jednu dnevnu rutinu, a ne prekomplikovan program, i da nema agencijske birokratije - jedan fokusiran dan je sasvim dovoljan.',
         },
         {
           question: 'Šta ako mi kasnije zatrebaju izmene ili nove funkcije?',
@@ -517,7 +545,7 @@ export const translations: Record<Language, TranslationContent> = {
       ctaPrimary: 'Ücretsiz demo isteyin',
       ctaSecondary: 'Canlı demoları deneyin',
       trustPoints: [
-        '24 saatte teslim',
+        'Önce tasarımı onaylarsınız',
         'Sabit fiyat: €250 – €750',
         'Yazılım tamamen sizin — aylık aidat yok',
       ],
@@ -569,41 +597,53 @@ export const translations: Record<Language, TranslationContent> = {
       ],
     },
     howItWorks: {
-      eyebrow: '3 Adımlı Net Süreç',
-      title: 'Nasıl çalışır: Fikirden çalışan uygulamaya 24 saat',
+      eyebrow: '4 Adımlı Net Süreç',
+      title: 'Nasıl çalışır: tasarımı hiçbir şey kodlanmadan önce görürsünüz',
       subtitle:
-        'Uzayıp giden toplantılar yok. Teknik jargona boğulmak yok. Neyin takibini yaptığınızı gösterirsiniz, ben de kodlarım.',
+        'Uzayıp giden toplantılar yok, teknik jargon yok. Neyi takip ettiğinizi anlatırsınız, ben size ekranları gösteririm, ancak ondan sonra kodlarım.',
       steps: [
         {
           stepNumber: '01',
-          title: 'Konuşuruz (30 dk)',
-          timeframe: 'Sabah veya öğleden sonra görüşmesi',
+          title: 'Fikrinizi anlatırsınız',
+          timeframe: '30 dakikalık görüşme',
           description:
-            '30 dakikalık telefon veya WhatsApp görüşmesi. Defterinizi, mesajlarınızı veya tablonuzu gösterirsiniz; sizi en çok neyin yorduğunu anlatırsınız.',
+            'Telefon veya WhatsApp görüşmesi. Defterinizi, tablonuzu veya mesajlarınızı gösterirsiniz; sizi en çok neyin yorduğunu anlatırsınız.',
           details: [
             'Hiçbir teknik hazırlık yapmanıza gerek yok',
             'Günlük iş akışınızı sade bir dille konuşuruz',
-            'Ekranda sadece gerçekten gerekenleri belirleriz',
+            'Ekranda ne olacağına birlikte karar veririz',
           ],
         },
         {
           stepNumber: '02',
-          title: 'O gece kodlarım',
-          timeframe: 'Gece boyu geliştirme',
+          title: 'Size tasarımı gönderirim',
+          timeframe: 'Aynı gün',
           description:
-            'Tam olarak sizin iş yapış biçiminize göre optimize edilmiş, hızlı ve temiz bir web uygulaması yazarım. Sadece kullandığınız butonlar yer alır.',
+            'Uygulamanızın iki üç gerçek ekran tasarımı - kendi hizmetleriniz, kendi personeliniz, kendi fiyatlarınız. Şablon değil, parmağınızla dokunacağınız şeyin ta kendisi.',
           details: [
-            'Telefon, tablet ve kasa bilgisayarına tam uyumlu',
-            'Hızlı açılır, hantal menüler içermez',
-            'Otomatik veri güvenliği ve basit raporlama',
+            '2-3 bitmiş ekran, taslak değil',
+            'Örnek olarak kendi verileriniz kullanılır',
+            'Tek satır kod yazılmadan önce görürsünüz',
           ],
         },
         {
           stepNumber: '03',
-          title: 'Yarın kullanmaya başlarsınız',
-          timeframe: 'Ertesi sabah',
+          title: 'Değişiklik istersiniz',
+          timeframe: 'Aynı gün',
           description:
-            'Size özel linkinizi alırsınız. Telefonunuza veya tabletinize "Ana Ekrana Ekle" diyerek personelinizle hemen kullanmaya başlarsınız.',
+            'Butonu kaydırın, alanın adını değiştirin, hiç kullanmayacağınız şeyi çıkarın, atladığım şeyi ekleyin. Bu aşamadaki değişiklikler ücretsiz ve anında.',
+          details: [
+            'Siz onaylamadan hiçbir şey kodlanmaz',
+            'Resmi değiştirmek ucuz, bitmiş uygulamayı değiştirmek değil',
+            'Doğru olana kadar istediğiniz kadar tekrar ederiz',
+          ],
+        },
+        {
+          stepNumber: '04',
+          title: 'Ertesi gün teslim alırsınız',
+          timeframe: 'Ertesi gün',
+          description:
+            'Tasarımı onayladığınızda yapım bir gün sürer. Size özel linkinizi alır, "Ana Ekrana Ekle" der ve personelinizle hemen kullanmaya başlarsınız.',
           details: [
             'Nasıl çalıştığını gösteren 3 dakikalık video rehber',
             '14 gün boyunca ücretsiz ufak düzenleme hakkı',
@@ -669,7 +709,9 @@ export const translations: Record<Language, TranslationContent> = {
       includedItems: [
         'İşinize özel kodlanmış eksiksiz web uygulaması',
         'iPhone, Android, iPad ve bilgisayarda kusursuz çalışma',
-        '30 dakikalık başlangıç görüşmesi ve 24 saatte teslim',
+        'Yapımdan önce onaylayacağınız 2-3 bitmiş ekran tasarımı',
+        'Memnun kalana kadar ücretsiz tasarım revizyonu',
+        '30 dakikalık başlangıç görüşmesi, onayladığınız gün yapım',
         'Ekibiniz için 3 dakikalık özel video anlatım',
         '14 gün boyunca ücretsiz ufak düzenleme desteği',
         'İstediğiniz an tüm verilerinizi Excel olarak dışa aktarma',
@@ -691,7 +733,7 @@ export const translations: Record<Language, TranslationContent> = {
         {
           question: 'Gerçekten 1 günde bir uygulama nasıl yapılabiliyor?',
           answer:
-            'Çünkü asla kullanmayacağınız yüzlerce gereksiz özellikle dolu devasa yazılımlar yapmıyoruz. Sadece günlük rutininize odaklanmış, net ve hızlı araçlar üretiyoruz. Büyük ajans hantallığı ve toplantı trafiği olmadığı için, odaklanmış bir günlük çalışma kaliteli bir araç için fazlasıyla yeterlidir.',
+            'Çünkü yapıma başladığımda bütün kararlar çoktan verilmiş oluyor. Önce iki üç bitmiş ekran tasarımını onaylıyorsunuz; böylece yapım günü sadece uygulama oluyor - tahmin yok, baştan yazma yok, "aslında şunu şuraya alsak" yok. Üstüne bunların devasa sistemler değil tek bir günlük rutine odaklanmış araçlar olmasını ve ajans hantallığının bulunmamasını ekleyin - odaklanmış bir gün fazlasıyla yetiyor.',
         },
         {
           question: 'Daha sonra değişiklik veya yeni özellik istersem ne olur?',
