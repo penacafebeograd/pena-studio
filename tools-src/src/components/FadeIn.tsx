@@ -11,6 +11,9 @@ interface FadeInProps {
   id?: string;
 }
 
+/** If the observer has not reported anything by now, just show the content. */
+const REVEAL_FALLBACK_MS = 1200;
+
 export const FadeIn: React.FC<FadeInProps> = ({
   children,
   className = '',
@@ -30,15 +33,18 @@ export const FadeIn: React.FC<FadeInProps> = ({
 
     // Respect user accessibility settings for reduced motion
     const prefersReducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
+      '(prefers-reduced-motion: reduce)',
     ).matches;
 
-    if (prefersReducedMotion) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       setIsVisible(true);
       return;
     }
 
-    if (!('IntersectionObserver' in window)) {
+    // Anything already on screen at mount is shown straight away. Without this
+    // the first viewport depends entirely on the observer firing.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
       setIsVisible(true);
       return;
     }
@@ -50,16 +56,22 @@ export const FadeIn: React.FC<FadeInProps> = ({
           observer.unobserve(el);
         }
       },
-      {
-        threshold,
-        rootMargin,
-      }
+      { threshold, rootMargin },
     );
 
     observer.observe(el);
 
+    // Safety net: the animation is decoration, so it must never be the reason
+    // content stays invisible. If the observer has not fired by now (throttled,
+    // blocked, or unsupported in some embedded view), reveal anyway.
+    const fallback = window.setTimeout(
+      () => setIsVisible(true),
+      REVEAL_FALLBACK_MS,
+    );
+
     return () => {
       observer.disconnect();
+      window.clearTimeout(fallback);
     };
   }, [threshold, rootMargin]);
 
