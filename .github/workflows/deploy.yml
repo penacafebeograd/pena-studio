@@ -1,0 +1,77 @@
+name: Deploy penastudio.cc
+
+# Builds the Pena Tools app and publishes the whole site to GitHub Pages:
+#   /            -> existing Pena Studio landing page (index.html)
+#   /work.html   -> existing work page
+#   /tools/      -> Pena Tools (built from tools-src/)
+#
+# Only the staged _site directory is published, so neither the app source nor
+# node_modules ever reaches the public site.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: tools-src/package-lock.json
+
+      - name: Install
+        working-directory: tools-src
+        run: npm ci
+
+      - name: Typecheck and build Pena Tools
+        working-directory: tools-src
+        env:
+          VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
+          VITE_FORM_ACCESS_KEY: ${{ secrets.VITE_FORM_ACCESS_KEY }}
+        run: npm run build
+
+      - name: Stage the site
+        run: |
+          mkdir -p _site
+          cp index.html work.html CNAME .nojekyll _site/
+          cp -r tools _site/tools
+
+      - name: Verify nothing is missing before publishing
+        run: |
+          for f in _site/index.html _site/work.html _site/CNAME \
+                   _site/tools/index.html \
+                   _site/tools/demo/salon/index.html \
+                   _site/tools/demo/gym/index.html; do
+            test -f "$f" || { echo "MISSING: $f"; exit 1; }
+          done
+          test ! -d _site/tools-src || { echo "source leaked into the artifact"; exit 1; }
+          test ! -d _site/node_modules || { echo "node_modules leaked into the artifact"; exit 1; }
+          echo "Staged site:"; find _site -type f | sort
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
