@@ -16,8 +16,33 @@ import { StandaloneDemoPage } from './components/StandaloneDemoPage';
 import { ScrollProgress } from './components/ScrollProgress';
 import { DynamicSeo } from './components/DynamicSeo';
 
+/**
+ * Serbian is the default: the service sells to small businesses in Belgrade,
+ * and an English landing page loses most of them before they read a line.
+ * A previously chosen language wins, then the browser's own preference for
+ * English or Turkish; everything else falls through to Serbian.
+ */
+const pickInitialLanguage = (): Language => {
+  if (typeof window === 'undefined') return 'sr';
+
+  try {
+    const saved = localStorage.getItem('pena_lang');
+    if (saved === 'en' || saved === 'sr' || saved === 'tr') return saved;
+  } catch {
+    // Storage blocked - fall through to browser preference.
+  }
+
+  for (const tag of navigator.languages ?? [navigator.language]) {
+    const code = tag?.toLowerCase().split('-')[0];
+    if (code === 'sr' || code === 'hr' || code === 'bs' || code === 'me') return 'sr';
+    if (code === 'tr') return 'tr';
+    if (code === 'en') return 'en';
+  }
+  return 'sr';
+};
+
 export default function App() {
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>(pickInitialLanguage);
   const [route, setRoute] = useState<Route>(routeFromPath);
   const [activeDemo, setActiveDemo] = useState<'salon' | 'gym' | null>(null);
 
@@ -46,6 +71,14 @@ export default function App() {
       // Private browsing / storage disabled — the toggle still works in-session.
     }
   }, [theme]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('pena_lang', lang);
+    } catch {
+      // Private browsing - the switcher still works for this session.
+    }
+  }, [lang]);
 
   // Back/forward buttons.
   useEffect(() => {
