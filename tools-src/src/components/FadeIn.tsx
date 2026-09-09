@@ -49,8 +49,13 @@ export const FadeIn: React.FC<FadeInProps> = ({
       return;
     }
 
+    // A working observer reports once on observe() even when the element is
+    // off screen. That first report is what tells us the observer is alive.
+    let observerReported = false;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
+        observerReported = true;
         if (entry.isIntersecting) {
           setIsVisible(true);
           observer.unobserve(el);
@@ -62,12 +67,12 @@ export const FadeIn: React.FC<FadeInProps> = ({
     observer.observe(el);
 
     // Safety net: the animation is decoration, so it must never be the reason
-    // content stays invisible. If the observer has not fired by now (throttled,
-    // blocked, or unsupported in some embedded view), reveal anyway.
-    const fallback = window.setTimeout(
-      () => setIsVisible(true),
-      REVEAL_FALLBACK_MS,
-    );
+    // content stays invisible. Only applies when the observer never reported at
+    // all (throttled, blocked, or inert in some embedded views) — otherwise the
+    // scroll reveal is left to work normally.
+    const fallback = window.setTimeout(() => {
+      if (!observerReported) setIsVisible(true);
+    }, REVEAL_FALLBACK_MS);
 
     return () => {
       observer.disconnect();
