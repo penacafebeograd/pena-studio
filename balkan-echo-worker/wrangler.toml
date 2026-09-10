@@ -1,0 +1,12 @@
+name = "balkan-echo-ack"
+main = "src/index.ts"
+compatibility_date = "2026-09-01"
+
+# Plain vars — safe to keep in the repo.
+[vars]
+PACKAGE_NAME = "cc.penastudio.balkanecho"
+PRODUCT_ID = "balkan_echo_monthly"
+ALLOWED_ORIGIN = "https://penastudio.cc"
+
+# The service-account JSON is a secret and is NOT set here. Once:
+#   npx wrangler secret put GOOGLE_SERVICE_ACCOUNT_JSON
