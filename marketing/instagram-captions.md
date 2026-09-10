@@ -230,3 +230,36 @@ daha inandırıcı olur ve 2 dakika sürer:
 4. Kaydı durdur, baştan/sondan fazlalığı kırp
 
 Parmağın görünmesi iyi — gerçek olduğunu kanıtlıyor.
+
+---
+
+# Reels — etiketler
+
+Demo salon uygulamasını gösteriyor, o yüzden set salon ağırlıklı.
+Etiketleri **ilk yoruma** yaz.
+
+## Salon demosu için (varsayılan)
+
+```
+#frizerskisalon #frizerskisalonbeograd #kozmetickisalon #beograd
+#beogradnadlanu #malibiznis #preduzetnik #zakazivanje #aplikacija #srbija
+```
+
+## Spor salonu demosunu paylaşırsan
+
+Salon etiketlerini bunlarla değiştir, gerisi aynı kalsın:
+
+```
+#teretana #teretanabeograd #fitnessbeograd #trening
+```
+
+## Kurallar
+
+- **8–12 tane yeter.** 30 etiket doldurmak işe yaramıyor, spam sinyali veriyor.
+- **Diyakritiksiz yaz.** İnsanlar `#šišanje` diye aramıyor, `#sisanje` diye
+  arıyor. Yukarıdaki set bilerek diyakritiksiz.
+- **Yerel olanlar en değerlisi.** `#beograd` ve `#frizerskisalonbeograd`,
+  `#software` gibi genel etiketlerden çok daha isabetli — hedefin Belgrad'da
+  20 işletme, dünya değil.
+- **Reels'te etiket ikincil.** Erişimi asıl belirleyen izlenme süresi ve
+  paylaşım. Etiket sadece konuyu sınıflandırıyor.
