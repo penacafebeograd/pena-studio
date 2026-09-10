@@ -11,12 +11,8 @@ değil. Onların kendi hesapları var.
 `@penas.tudio` değişmeli: nokta yanlış yerde, göz onu **"penas" + "tudio"**
 diye okuyor. Sırayla:
 
-1. `@penatools`
-2. `@pena.tools`
-3. `@penatools.rs`
-
-**Nasıl:** Profil → Profili düzenle → Kullanıcı adı. Anında ve ücretsiz.
-14 günde 2 değişiklik hakkı var, tek seferde doğrusunu seç.
+**Alındı: `@penatools.rs`** (2026-09-10). Nokta doğru yerde, `.rs` yerellik
+sinyali veriyor.
 
 ---
 
@@ -51,7 +47,7 @@ Instagram bio'da 5 bağlantıya kadar izin veriyor. Sıralama önemli, ilki en
 görünür:
 
 1. `penastudio.cc/tools` — **Demo uživo**
-2. `wa.me/381659565675` — **WhatsApp** (Sırbistan'da en yüksek dönüşen kanal)
+2. `wa.me/381659565675` — **WhatsApp** (kişisel hat, mesajlara sahibi bakıyor)
 3. `penastudio.cc` — Pena Studio
 
 ---
@@ -60,24 +56,24 @@ görünür:
 
 - **Hesap türü:** Professional → Business
 - **Kategori:** Software Company (veya Business Service)
-- **İletişim düğmesi:** WhatsApp'ı bağla — profilde doğrudan buton çıkar,
-  bio'daki linke tıklamaya gerek kalmaz
-- **Profil fotoğrafı:** `logo/instagram-avatar-C.png`
+- **İletişim düğmesi:** WhatsApp'ı bağla (`+381 65 956 5675`) — profilde
+  doğrudan buton çıkar, bio'daki linke tıklamaya gerek kalmaz
+- **Kullanıcı adı:** `@penatools.rs` (alındı)
+- **Profil fotoğrafı:** `logo/instagram-avatar-A.png`
 
 ---
 
 ## Profil fotoğrafı
 
-`marketing/logo/instagram-avatar-C.png` — PT monogramı, koyu zemin.
+`marketing/logo/instagram-avatar-A.png` — koyu zemin, PENA beyaz / TOOLS teal.
 
 Instagram avatarı **daireye kırpıyor** ve yorumlarda 32px'e kadar küçültüyor.
-Üç seçenek test edildi: "PENA TOOLS" yazılı olanlar 32px'te okunmaz hale
-geliyor, monogram her boyutta ayakta kalıyor. Avatarın yanında hesap adı zaten
-görünüyor, o yüzden avatarın ismi hecelemesi gerekmiyor.
+İlk versiyonda yazı çapın ancak %48'ini kullanıyordu, o yüzden küçük boyutta
+dağılıyordu. Şimdi %76 — 56px'te net, 32px'te de okunur kalıyor.
+Karşılaştırma: `instagram-avatar-A-before-after.png`.
 
-Alternatifler dursun: `instagram-avatar-A.png` (koyu, yazılı),
-`instagram-avatar-B.png` (teal zemin, yazılı). Karşılaştırma:
-`instagram-avatar-options.png`.
+Alternatifler dursun: `instagram-avatar-B.png` (teal zemin),
+`instagram-avatar-C.png` (PT monogramı). Hepsi: `instagram-avatar-options.png`.
 
 ---
 
