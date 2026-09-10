@@ -131,3 +131,102 @@ Pena Tools — jednostavne aplikacije po meri za male biznise
 Gotovo za 1 dan · €250–750 · bez pretplate
 penastudio.cc/tools
 ```
+
+---
+
+# Carousel — süreç (6 slayt)
+
+Dosyalar: `carousel/proces-sr-1..6.png` · `-en-` · `-tr-`
+Format 1080×1350 (4:5) — feed'de en çok yer kaplayan oran.
+
+## SR
+```
+Kako pravimo vašu aplikaciju — četiri koraka.
+
+Najveći strah kod softvera po meri: platiš, pa dobiješ nešto što ne liči
+na ono što si zamislio. Zato prvo šaljem izgled.
+
+1. Ispričate mi šta pratite — 30 minuta
+2. Šaljem 2–3 gotova prikaza ekrana sa vašim uslugama i cenama
+3. Kažete šta da se promeni — besplatno, koliko puta treba
+4. Kada odobrite, izrada traje jedan dan
+
+Ništa se ne pravi dok vi ne kažete da je u redu.
+Fiksna cena €250–750, bez pretplate.
+
+Demo uživo — link u biju.
+```
+
+## EN
+```
+How your app gets made — four steps.
+
+The usual fear with custom software: you pay, then you get something that
+looks nothing like what you pictured. So the design comes first.
+
+1. You tell me what you track — 30 minutes
+2. I send 2–3 finished screen designs with your services and prices
+3. You say what to change — free, as many rounds as it takes
+4. Once you approve, the build takes a day
+
+Nothing gets built until you say it's right.
+Fixed price €250–750, no subscription.
+
+Live demo — link in bio.
+```
+
+## TR
+```
+Uygulamanız nasıl yapılıyor — dört adım.
+
+Özel yazılımda en büyük korku: para verirsin, aklındakine hiç benzemeyen
+bir şey gelir. Bu yüzden önce tasarım geliyor.
+
+1. Neyi takip ettiğinizi anlatırsınız — 30 dakika
+2. Kendi hizmet ve fiyatlarınızla 2–3 bitmiş ekran tasarımı gönderirim
+3. Neyin değişeceğini söylersiniz — ücretsiz, kaç tur gerekirse
+4. Onayladığınızda yapım bir gün sürer
+
+Siz "oldu" demeden hiçbir şey kodlanmıyor.
+Sabit fiyat €250–750, abonelik yok.
+
+Canlı demo — link bio'da.
+```
+
+---
+
+# Reels — demo
+
+Dosya: `demo-reels-sr.mp4` (1080×1920, 16 sn) · kapak `demo-reels-cover.png`
+
+```
+Ovako izgleda upisivanje termina.
+
+Ime, usluga, sat — i termin je u rasporedu. Dnevni pazar se sam
+preračunava. Bez menija u meniju, bez čekanja.
+
+Ovo je pravi demo, možete ga isprobati sami — link u biju.
+```
+
+**Müzik:** Business hesabında sadece ticari kullanıma açık kütüphane var
+(trend sesler yok). Instagram'ın kendi ses sekmesinden sakin bir parça seç,
+ya da sessiz bırak — video zaten kendini anlatıyor.
+
+---
+
+# Gerçek telefon kaydı (yapılacak)
+
+Yukarıdaki MP4 bir **motion graphic** — arayüz, veri ve akış gerçek demoyla
+aynı ama ekrandan çekilmiş bir kayıt değil. Telefondan çekilmiş gerçek kayıt
+daha inandırıcı olur ve 2 dakika sürer:
+
+1. Telefonda `penastudio.cc/tools/demo/salon` aç, dili SR yap
+2. Ekran kaydını başlat (iOS: Kontrol Merkezi · Android: hızlı ayarlar)
+3. Çekilecekler, 15 saniyeyi geçmesin:
+   - Haftada bir güne dokun, program değişsin
+   - "Upiši termin" → ad yaz → hizmet seç → kaydet
+   - Yeni satırın listeye düştüğünü ve toplamın değiştiğini göster
+   - Bir termine dokunup durumunu değiştir (Potvrđeno → U stolici)
+4. Kaydı durdur, baştan/sondan fazlalığı kırp
+
+Parmağın görünmesi iyi — gerçek olduğunu kanıtlıyor.
