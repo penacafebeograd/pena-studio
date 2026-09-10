@@ -19,8 +19,13 @@
  */
 export const WHATSAPP_NUMBER = '381659565675';
 
-/** Public contact address. Leave empty to hide the email row entirely. */
-export const CONTACT_EMAIL = '';
+/**
+ * Public contact address. Leave empty to hide the email row entirely.
+ *
+ * The Pena Studio inbox — penastudio.cc has no MX records, so there is no
+ * address on the domain itself to use.
+ */
+export const CONTACT_EMAIL = 'penastudio@proton.me';
 
 /**
  * Where the contact form POSTs.
