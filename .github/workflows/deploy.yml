@@ -1,9 +1,10 @@
 name: Deploy penastudio.cc
 
 # Builds the Pena Tools app and publishes the whole site to GitHub Pages:
-#   /            -> existing Pena Studio landing page (index.html)
-#   /work.html   -> existing work page
-#   /tools/      -> Pena Tools (built from tools-src/)
+#   /              -> existing Pena Studio landing page (index.html)
+#   /work.html     -> existing work page
+#   /tools/        -> Pena Tools (built from tools-src/)
+#   /balkan-echo/  -> Balkan Echo walking tours (built from balkan-echo-src/)
 #
 # Only the staged _site directory is published, so neither the app source nor
 # node_modules ever reaches the public site.
@@ -31,9 +32,11 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-          cache-dependency-path: tools-src/package-lock.json
+          cache-dependency-path: |
+            tools-src/package-lock.json
+            balkan-echo-src/package-lock.json
 
-      - name: Install
+      - name: Install Pena Tools
         working-directory: tools-src
         run: npm ci
 
@@ -45,21 +48,59 @@ jobs:
           VITE_CF_BEACON_TOKEN: ${{ secrets.VITE_CF_BEACON_TOKEN }}
         run: npm run build
 
+      - name: Install Balkan Echo
+        working-directory: balkan-echo-src
+        run: npm ci
+
+      # Balkan Echo is a static export: `next build` writes out/ and no
+      # server ever runs. Typecheck separately so a type error fails the
+      # deploy rather than shipping.
+      - name: Typecheck and build Balkan Echo
+        working-directory: balkan-echo-src
+        env:
+          # The subscription acknowledgement Worker. Set this as a repository
+          # variable once the Worker is deployed; while it is empty the app
+          # deliberately refuses to sell a subscription, because Play refunds
+          # anything not acknowledged within three days.
+          NEXT_PUBLIC_ACK_ENDPOINT: ${{ vars.NEXT_PUBLIC_ACK_ENDPOINT }}
+        run: |
+          npm run typecheck
+          npm run build
+
       - name: Stage the site
         run: |
           mkdir -p _site
           cp index.html work.html CNAME .nojekyll _site/
           cp -r tools _site/tools
+          cp -r balkan-echo-src/out _site/balkan-echo
 
       - name: Verify nothing is missing before publishing
         run: |
           for f in _site/index.html _site/work.html _site/CNAME \
                    _site/tools/index.html \
                    _site/tools/demo/salon/index.html \
-                   _site/tools/demo/gym/index.html; do
+                   _site/tools/demo/gym/index.html \
+                   _site/balkan-echo/index.html \
+                   _site/balkan-echo/privacy/index.html \
+                   _site/balkan-echo/manifest.webmanifest \
+                   _site/balkan-echo/sw.js \
+                   _site/balkan-echo/icons/icon-512.png; do
             test -f "$f" || { echo "MISSING: $f"; exit 1; }
           done
+          # A subdirectory build breaks silently if basePath is ever dropped,
+          # so assert the asset URLs actually carry it.
+          grep -q '/balkan-echo/_next/' _site/balkan-echo/index.html \
+            || { echo "balkan-echo built without basePath"; exit 1; }
+          # Recorded narration is listed in a generated manifest. If the
+          # manifest names clips but none shipped, the app would offer audio
+          # that 404s in the street.
+          if grep -q '"' balkan-echo-src/src/lib/audio-manifest.ts; then
+            test -d _site/balkan-echo/audio \
+              || { echo "audio manifest lists clips but none were published"; exit 1; }
+          fi
           test ! -d _site/tools-src || { echo "source leaked into the artifact"; exit 1; }
+          test ! -d _site/balkan-echo-src || { echo "source leaked into the artifact"; exit 1; }
+          test ! -d _site/balkan-echo-worker || { echo "worker source leaked into the artifact"; exit 1; }
           test ! -d _site/node_modules || { echo "node_modules leaked into the artifact"; exit 1; }
           echo "Staged site:"; find _site -type f | sort
 

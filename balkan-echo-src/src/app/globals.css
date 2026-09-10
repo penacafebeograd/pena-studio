@@ -1,0 +1,325 @@
+@import "leaflet/dist/leaflet.css";
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0.014 285.823);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.014 285.823);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.014 285.823);
+
+  --primary: oklch(0.488 0.212 264.376);
+  --primary-foreground: oklch(0.984 0.003 264.376);
+
+  --secondary: oklch(0.962 0.005 285.823);
+  --secondary-foreground: oklch(0.213 0.022 285.823);
+
+  --muted: oklch(0.962 0.005 285.823);
+  --muted-foreground: oklch(0.556 0.014 285.823);
+
+  --accent: oklch(0.962 0.005 285.823);
+  --accent-foreground: oklch(0.213 0.022 285.823);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 27.325);
+
+  --border: oklch(0.922 0.004 285.823);
+  --input: oklch(0.922 0.004 285.823);
+  --ring: oklch(0.488 0.212 264.376);
+}
+
+.dark {
+  --background: oklch(0.145 0.014 285.823);
+  --foreground: oklch(0.984 0.003 285.823);
+
+  --card: oklch(0.145 0.014 285.823);
+  --card-foreground: oklch(0.984 0.003 285.823);
+
+  --popover: oklch(0.145 0.014 285.823);
+  --popover-foreground: oklch(0.984 0.003 285.823);
+
+  --primary: oklch(0.622 0.212 264.376);
+  --primary-foreground: oklch(0.145 0.014 285.823);
+
+  --secondary: oklch(0.213 0.022 285.823);
+  --secondary-foreground: oklch(0.984 0.003 285.823);
+
+  --muted: oklch(0.213 0.022 285.823);
+  --muted-foreground: oklch(0.704 0.008 285.823);
+
+  --accent: oklch(0.213 0.022 285.823);
+  --accent-foreground: oklch(0.984 0.003 285.823);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.984 0.003 27.325);
+
+  --border: oklch(0.274 0.015 285.823);
+  --input: oklch(0.274 0.015 285.823);
+  --ring: oklch(0.622 0.212 264.376);
+}
+/* MAD-146:design-tokens:start */
+/* Per-business OKLCH design tokens (MAD-146). Generated deterministically
+   from the brand brief. Font pairing: Newsreader (display) + Public Sans (body). */
+:root {
+  --background: oklch(99% 0.004 145);
+  --foreground: oklch(20% 0.012 145);
+  --card: oklch(97.2% 0.004 145);
+  --card-foreground: oklch(18% 0.01 145);
+  --popover: oklch(97.2% 0.004 145);
+  --popover-foreground: oklch(18% 0.01 145);
+  --primary: oklch(55% 0.13 145);
+  --primary-foreground: oklch(100% 0.005 145);
+  --secondary: oklch(70% 0.0585 120);
+  --secondary-foreground: oklch(32% 0.005 120);
+  --accent: oklch(68% 0.1235 190);
+  --accent-foreground: oklch(32% 0.005 190);
+  --muted: oklch(96% 0.004 145);
+  --muted-foreground: oklch(24% 0.01 145);
+  --border: oklch(91% 0.0048 145);
+  --input: oklch(91% 0.0048 145);
+  --ring: oklch(55% 0.1365 145);
+  --destructive: oklch(55% 0.22 27);
+  --destructive-foreground: oklch(98% 0.005 27);
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-body: 'Public Sans', ui-sans-serif, system-ui, sans-serif;
+  --radius: 0.25rem;
+  --radius-sm: calc(var(--radius) - 0.25rem);
+  --radius-md: calc(var(--radius) - 0.125rem);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 0.25rem);
+  --shadow-sm: 0 1px 2px 0 oklch(0% 0 0 / 0.05);
+  --shadow-md: 0 4px 12px -2px oklch(0% 0 0 / 0.10);
+  --shadow-lg: 0 12px 32px -8px oklch(0% 0 0 / 0.18);
+  --gradient-brand: linear-gradient(135deg, oklch(55% 0.13 145), oklch(68% 0.1235 190));
+  --gradient-subtle: linear-gradient(180deg, oklch(99% 0.004 145), oklch(96% 0.004 145));
+}
+
+.dark {
+  --background: oklch(16% 0.004 145);
+  --foreground: oklch(96% 0.005 145);
+  --card: oklch(18.4% 0.004 145);
+  --card-foreground: oklch(98% 0.005 145);
+  --popover: oklch(18.4% 0.004 145);
+  --popover-foreground: oklch(98% 0.005 145);
+  --primary: oklch(67% 0.13 145);
+  --primary-foreground: oklch(30% 0.005 145);
+  --secondary: oklch(70% 0.0585 120);
+  --secondary-foreground: oklch(32% 0.005 120);
+  --accent: oklch(68% 0.1235 190);
+  --accent-foreground: oklch(32% 0.005 190);
+  --muted: oklch(20% 0.0056 145);
+  --muted-foreground: oklch(92% 0.005 145);
+  --border: oklch(24% 0.0048 145);
+  --input: oklch(24% 0.0048 145);
+  --ring: oklch(67% 0.1365 145);
+  --destructive: oklch(62% 0.21 25);
+  --destructive-foreground: oklch(18% 0.005 25);
+  --gradient-brand: linear-gradient(135deg, oklch(67% 0.13 145), oklch(68% 0.1235 190));
+  --gradient-subtle: linear-gradient(180deg, oklch(16% 0.004 145), oklch(20% 0.0056 145));
+}
+/* MAD-146:design-tokens:end */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* ── Route map ────────────────────────────────────────────────────────────
+   Leaflet paints vector paths with SVG presentation attributes, and a CSS
+   variable is NOT resolved inside one — `stroke="var(--primary)"` simply
+   fails and you get Leaflet's default blue. So every path carries a class
+   instead and gets its colour from a real CSS property here.             */
+
+.tour-route-map {
+  position: relative;
+  height: 18rem;
+  overflow: hidden;
+  background: var(--muted);
+  transition: height 220ms ease;
+}
+
+.tour-route-map .leaflet-container {
+  background: var(--muted);
+  font-family: var(--font-body);
+}
+
+.tour-route-map .leaflet-control-zoom a {
+  border-color: var(--border);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.tour-route-map .leaflet-control-attribution {
+  background: color-mix(in oklch, var(--background) 88%, transparent);
+  color: var(--muted-foreground);
+  font-size: 0.62rem;
+}
+
+.tour-route-map .leaflet-control-attribution a,
+.tour-route-map .leaflet-tooltip {
+  color: var(--foreground);
+}
+
+.tour-route-map .leaflet-tooltip {
+  border-color: var(--border);
+  background: var(--background);
+}
+
+/* OpenStreetMap only publishes a light basemap, so in dark mode the map
+   would be the one glaring rectangle on the page. Dim it rather than invert
+   it — inverting turns parks purple and water orange, which reads worse
+   than simply bright. */
+.dark .tour-route-map .leaflet-tile-pane {
+  filter: brightness(0.72) saturate(0.85) contrast(1.05);
+}
+
+/* Walking paths */
+.tour-map-path {
+  fill: none;
+  cursor: pointer;
+}
+
+.tour-map-path-route {
+  stroke: var(--primary);
+  stroke-opacity: 0.45;
+}
+
+.tour-map-path-active {
+  stroke: var(--primary);
+  stroke-opacity: 1;
+}
+
+.tour-map-path-alternative {
+  stroke: var(--accent);
+  stroke-opacity: 0.9;
+}
+
+.tour-map-path-alternative:hover {
+  stroke-opacity: 1;
+  stroke-width: 7;
+}
+
+/* Numbered stops */
+.tour-map-stop {
+  fill: var(--foreground);
+  fill-opacity: 1;
+  stroke: var(--background);
+  cursor: pointer;
+}
+
+.tour-map-stop-active {
+  fill: var(--primary);
+}
+
+.tour-route-map .tour-map-stop-number {
+  margin: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--background);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.tour-route-map .tour-map-stop-number::before {
+  display: none;
+}
+
+.tour-route-map .tour-map-stop-number-active {
+  color: var(--primary-foreground);
+}
+
+/* Optional detours */
+.tour-map-detour {
+  fill: var(--background);
+  fill-opacity: 1;
+  stroke: var(--muted-foreground);
+  stroke-opacity: 0.55;
+  stroke-dasharray: 3 3;
+  cursor: pointer;
+}
+
+.tour-map-detour:hover {
+  stroke-opacity: 1;
+}
+
+.tour-map-detour-on {
+  fill: var(--accent);
+  stroke: var(--background);
+  stroke-opacity: 1;
+  stroke-dasharray: none;
+}
+
+/* A place we run ourselves: solid brand green rather than the hollow ring of
+   a suggestion, so it is visibly ours on the map too. */
+.tour-map-detour-partner {
+  fill: var(--primary);
+  stroke: var(--background);
+  stroke-opacity: 1;
+  stroke-dasharray: none;
+}
+
+/* Where the walker is */
+.tour-map-visitor {
+  fill: var(--accent);
+  fill-opacity: 1;
+  stroke: var(--background);
+}
+
+.tour-map-visitor-halo {
+  fill: var(--accent);
+  fill-opacity: 0.12;
+  stroke: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .tour-route-map {
+    height: 22rem;
+  }
+}
+
+/* Doubled class on purpose: this has to outrank the breakpoint rule above,
+   which would otherwise clamp the expanded map back to 22rem. */
+.tour-route-map.tour-route-map-expanded {
+  height: min(72vh, 40rem);
+}

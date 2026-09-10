@@ -2,6 +2,18 @@ node_modules/
 tools-src/node_modules/
 tools-src/.env
 tools-src/.env.local
+balkan-echo-src/node_modules/
+balkan-echo-src/.next/
+balkan-echo-src/out/
+balkan-echo-src/*.tsbuildinfo
+balkan-echo-src/.env.local
+balkan-echo-src/scripts/narration.json
+# Intermediate synthesis output; only the .opus files ship.
+balkan-echo-src/public/audio/**/*.wav
+balkan-echo-src/public/audio/**/*.txt
+balkan-echo-worker/node_modules/
+balkan-echo-worker/.wrangler/
 
 # Build output — produced by .github/workflows/deploy.yml on every push.
 tools/
+balkan-echo/

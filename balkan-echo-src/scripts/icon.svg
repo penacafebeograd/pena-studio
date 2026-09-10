@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" fill="#2E7D52"/>
+  <!-- The walk: a route climbing from the river up to the old town, with the
+       three stops that read at 48px. Kept inside the central 60% so the
+       maskable crop never clips it. -->
+  <path d="M148 372 C 168 300, 232 316, 250 260 C 268 204, 312 196, 364 156"
+        fill="none" stroke="#F2F7F3" stroke-width="26"
+        stroke-linecap="round" stroke-linejoin="round" opacity="0.92"/>
+  <circle cx="148" cy="372" r="30" fill="#F2F7F3"/>
+  <circle cx="250" cy="260" r="22" fill="#F2F7F3"/>
+  <circle cx="364" cy="156" r="34" fill="#F2F7F3"/>
+  <circle cx="364" cy="156" r="15" fill="#2E7D52"/>
+</svg>

@@ -1,0 +1,153 @@
+import type { UiStrings } from "@/lib/i18n";
+
+export const fr: UiStrings = {
+  name: "Français",
+  speechLang: "fr-FR",
+  strings: {
+
+    pilotTour: "Parcours pilote",
+    stariGrad: "Stari Grad",
+    heroKicker: "Belgrade, à votre oreille",
+    heroTitle: "La ville est meilleure quand elle vous répond.",
+    heroBody:
+      "Une balade légère dans la vieille ville de Belgrade, pensée pour le téléphone. Choisissez votre langue, suivez les étapes et lancez la lecture quand vous êtes prêt. Elle continue de fonctionner même sans réseau.",
+    startWalk: "Commencer la balade",
+    seeRoute: "Voir l'itinéraire",
+    badgeTime: "75–90 minutes",
+    badgeFree: "Expérience pilote gratuite",
+    badgeBrowser: "Fonctionne dans votre navigateur",
+    todaysRoute: "L'itinéraire du jour",
+    routeHeadline: "Des remparts aux tables bohèmes.",
+    routeNote:
+      "Six lieux. Une balade. Largement de quoi caser un café, un détour ou une très belle vue.",
+    expectKicker: "Fait pour flâner, pas pour fixer un écran.",
+    expectTitle: "Un itinéraire dont on profite vraiment dès le premier jour à Belgrade.",
+    expectOneTitle: "De vraies rues, pas des lignes droites.",
+    expectOneBody:
+      "Chaque tracé de la carte suit des trottoirs et des passages réellement praticables, avec des distances honnêtes.",
+    expectTwoTitle: "Écoutez à votre façon.",
+    expectTwoBody:
+      "Le pilote utilise la synthèse vocale du navigateur : aucun téléchargement mystérieux, aucun fichier audio.",
+    expectThreeTitle: "Conçu pour la rue.",
+    expectThreeBody:
+      "Activez la localisation quand vous le souhaitez, ou avancez avec des indications écrites claires.",
+    footerLine: "Histoires de Belgrade, à votre rythme.",
+
+    back: "Retour",
+    setupKicker: "Stari Grad · parcours pilote",
+    setupTitle: "Réglez votre humeur de marche.",
+    setupBody: "Quelques choix rapides, puis la ville est à vous.",
+    chooseLanguage: "Choisissez une langue",
+    languageNoteReady: "La narration et les indications sont entièrement traduites.",
+    languageNotePending:
+      "Cette langue n'est pas encore écrite — la balade reste en anglais pour l'instant.",
+    chooseTheme: "Choisissez un thème",
+    themeHistory: "Histoire",
+    themeHistoryBody: "Remparts, monuments et les récits entre les deux.",
+    chooseLength: "Combien de temps avez-vous ?",
+    chooseDirection: "D'où partez-vous ?",
+    openTour: "Ouvrir le parcours pilote",
+
+    counter: "Pilote",
+    mapKicker: "Carte interactive",
+    mapTitle: "Suivez la balade",
+    mapHint:
+      "Touchez une étape numérotée pour ouvrir son récit, ou un point pâle pour ajouter un détour.",
+    mapWholeRoute: "Tout l'itinéraire",
+    mapThisStop: "Cette étape",
+    mapExpand: "Agrandir la carte",
+    mapCollapse: "Fermer la carte",
+    mapLegendRoute: "Votre itinéraire",
+    mapLegendAlternative: "Variante",
+    mapLegendDetour: "Détour",
+    mapLocationOn: "Votre position apparaît en turquoise.",
+    mapLocationOff: "La localisation est facultative — tout l'itinéraire fonctionne sans elle.",
+
+    yourRoute: "Votre itinéraire",
+    routeName: "Balade historique de Stari Grad",
+    routeSummary: "{distance} · {minutes} min de marche",
+    routeSummaryDetours: "{distance} · {minutes} min de marche · +{detour} min de détours",
+    stopWord: "Étape",
+
+    narrationReady: "Prêt à écouter",
+    narrationPlaying: "Narration en cours",
+    narrationPaused: "Narration en pause",
+    narrationSource: "Voix du navigateur",
+    playStory: "Lancer le récit",
+    resumeStory: "Reprendre le récit",
+    pause: "Pause",
+    stopNarration: "Arrêter la narration",
+    listenOrRead: "Écoutez, ou lisez en même temps.",
+    narrationUnsupported:
+      "La narration audio n'est pas disponible dans ce navigateur. Vous pouvez lire le récit ci-dessous.",
+    narrationFailed:
+      "Votre navigateur n'a pas pu lancer la narration. Réessayez ou lisez le récit.",
+    narrationNoVoice:
+      "Aucune voix {language} n'est installée sur votre appareil, donc cette étape est en texte seul. Tout l'écrit reste traduit.",
+
+    locationTitle: "Localisation en direct, si vous voulez",
+    locationIdle: "Activez la localisation pour voir quand vous approchez de chaque étape.",
+    locationLoading: "Recherche de votre position…",
+    locationDenied:
+      "L'autorisation de localisation a été refusée. Pas de souci : suivez les indications écrites.",
+    locationUnavailable:
+      "La localisation n'est pas disponible sur cet appareil. L'itinéraire fonctionne avec les indications.",
+    locationArrived: "Vous êtes à cette étape — lancez le récit quand vous voulez.",
+    locationDistance: "À {distance} de cette étape. Continuez à suivre les indications.",
+    useMyLocation: "Utiliser ma position",
+    checkingLocation: "Vérification de la position",
+
+    walkNext: "Tronçon suivant",
+    walkStat: "{minutes} min · {distance}",
+    nextStop: "Étape suivante : {title}",
+    finishTour: "Terminer le pilote",
+    tourComplete: "Parcours terminé",
+    tourCompleteBody:
+      "D'ici, le retour vers le centre est facile, ou vous pouvez flâner tranquillement dans le quartier.",
+    directionReverseNote:
+      "Les indications écrites ont été rédigées pour la balade qui commence à la forteresse. Dans ce sens, suivez la ligne sur la carte — la distance et la durée ci-dessus sont justes.",
+    pathChoice: "Deux façons de faire ce tronçon",
+    pathChosen: "Vous passez par là",
+    detourTitle: "Vaut le détour",
+    detourNone: "Rien ne justifie de quitter l'itinéraire sur ce tronçon.",
+    detourAdd: "Ajouter",
+    detourAdded: "Ajouté",
+    detourMinutes: "+{minutes} min",
+    walksKicker: "Belgrade, une balade à la fois",
+    walksTitle: "Choisissez une balade.",
+    walksBody:
+      "La balade de Stari Grad est gratuite et le restera. Les nouveaux quartiers viennent avec l’abonnement.",
+    walkStops: "{count} étapes",
+    badgeFreeWalk: "Gratuit",
+    badgeSubscriberWalk: "Abonnement",
+    lockedNote:
+      "Compris dans l’abonnement mensuel. L’achat se fait dans l’application Android.",
+    lockedNoteWeb:
+      "Compris dans l’abonnement mensuel, vendu via l’application Android.",
+    allWalks: "Toutes les balades",
+    openWalk: "Ouvrir cette balade",
+    offerCode: "Code",
+    offerHint: "Montrez cet écran au comptoir.",
+    walkEnglishOnly: "Cette balade n’est écrite qu’en anglais pour l’instant.",
+    voiceMissing: "Aucune voix sur cet appareil",
+    voiceAvailable: "Peut être lu à voix haute",
+    voiceHelpAndroid: "Pour entendre cette langue, installez sa voix : Paramètres → Gestion globale → Synthèse vocale → votre moteur → Installer les données vocales.",
+    voiceHelpIos: "Pour entendre cette langue, ajoutez sa voix : Réglages → Accessibilité → Contenu énoncé → Voix.",
+    voiceHelpDesktop: "Votre navigateur n’a pas de voix pour cette langue. Les téléphones en ont généralement — sinon, lisez le texte.",
+    narrationRecorded: "Voix enregistrée",
+    chooseWalkHere: "Cinq balades, dont une gratuite",
+    subscribe: "S’abonner",
+    subscribePerMonth: "{price} / mois",
+    subscribeAllWalks: "Débloque toutes les balades, dans toutes les langues.",
+    subscribeThanks: "Merci — toutes les balades sont débloquées.",
+    subscribeFailed: "L’achat n’a pas abouti. Rien n’a été débité.",
+    subscribeCancelled: "Achat annulé. Rien n’a été débité.",
+    subscribeUnavailable: "L’abonnement n’est possible que dans l’application Android pour l’instant.",
+    openFreeWalk: "Ouvrir la balade gratuite",
+    language: "Langue",
+    theme: "Thème",
+    themeSystem: "Système",
+    themeLight: "Clair",
+    themeDark: "Sombre",
+  },
+};
