@@ -3,6 +3,7 @@ name: Deploy penastudio.cc
 # Builds the Pena Tools app and publishes the whole site to GitHub Pages:
 #   /            -> existing Pena Studio landing page (index.html)
 #   /work.html   -> existing work page
+#   /privacy.html -> privacy policy (SR/EN/TR)
 #   /assets/     -> images, icons and the share preview for those two pages
 #   /tools/      -> Pena Tools (built from tools-src/)
 #   /tools/link  -> personalised demo link builder (not linked, noindex)
@@ -50,13 +51,19 @@ jobs:
       - name: Stage the site
         run: |
           mkdir -p _site
-          cp index.html work.html CNAME .nojekyll _site/
+          cp index.html work.html privacy.html CNAME .nojekyll _site/
           cp -r assets _site/assets
           cp -r tools _site/tools
 
+      - name: Fill in the homepage form endpoint
+        env:
+          VITE_FORM_ENDPOINT: ${{ secrets.VITE_FORM_ENDPOINT }}
+          VITE_FORM_ACCESS_KEY: ${{ secrets.VITE_FORM_ACCESS_KEY }}
+        run: node .github/scripts/inject-form-config.mjs _site/index.html
+
       - name: Verify nothing is missing before publishing
         run: |
-          for f in _site/index.html _site/work.html _site/CNAME \
+          for f in _site/index.html _site/work.html _site/privacy.html _site/CNAME \
                    _site/assets/og-image.jpg _site/assets/hero-sparks.jpg \
                    _site/tools/index.html \
                    _site/tools/demo/salon/index.html \

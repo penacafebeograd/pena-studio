@@ -63,6 +63,11 @@ export interface UiContent {
   noSpam: string;
   formFallbackNote: string;
   formErrorText: string;
+  formFailedWa: string;
+  handoffTitle: string;
+  handoffText: string;
+  privacyNote: string;
+  privacyLink: string;
 
   demo: {
     salonTitle: string;
@@ -172,6 +177,11 @@ export const uiStrings: Record<Language, UiContent> = {
     formFallbackNote:
       'Sending opens WhatsApp with your answers already filled in, so nothing gets lost.',
     formErrorText: 'That did not go through. Please try WhatsApp instead.',
+    formFailedWa: 'Send it on WhatsApp instead',
+    handoffTitle: 'Almost there',
+    handoffText: 'WhatsApp is open with your enquiry filled in. Press Send there and it reaches me.',
+    privacyNote: 'Your details are only used to reply to you.',
+    privacyLink: 'Privacy policy',
 
     demo: {
       salonTitle: 'LIVE DEMO: Salon booking — counter system',
@@ -283,6 +293,11 @@ export const uiStrings: Record<Language, UiContent> = {
     formFallbackNote:
       'Slanje otvara WhatsApp sa već popunjenim odgovorima, tako da se ništa ne gubi.',
     formErrorText: 'Slanje nije uspelo. Pokušajte preko WhatsApp-a.',
+    formFailedWa: 'Pošaljite preko WhatsApp-a',
+    handoffTitle: 'Još samo jedan korak',
+    handoffText: 'WhatsApp je otvoren sa popunjenim upitom. Pritisnite Pošalji i upit stiže do mene.',
+    privacyNote: 'Vaše podatke koristim samo da vam odgovorim.',
+    privacyLink: 'Politika privatnosti',
 
     demo: {
       salonTitle: 'PRIMER UŽIVO: Zakazivanje u salonu',
@@ -395,6 +410,11 @@ export const uiStrings: Record<Language, UiContent> = {
     formFallbackNote:
       'Gönderdiğinizde WhatsApp, yanıtlarınız doldurulmuş halde açılır; hiçbir şey kaybolmaz.',
     formErrorText: 'Gönderilemedi. Lütfen WhatsApp üzerinden deneyin.',
+    formFailedWa: 'WhatsApp ile gönderin',
+    handoffTitle: 'Son bir adım',
+    handoffText: 'WhatsApp, talebiniz doldurulmuş olarak açıldı. Orada Gönder’e basın, bana ulaşsın.',
+    privacyNote: 'Bilgilerinizi yalnızca size yanıt vermek için kullanırım.',
+    privacyLink: 'Gizlilik politikası',
 
     demo: {
       salonTitle: 'CANLI DEMO: Kuaför randevu takibi',
