@@ -45,9 +45,13 @@ const EMPTY_FORM: FormState = {
 
 export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
   const [formData, setFormData] = useState<FormState>(EMPTY_FORM);
-  const [submitted, setSubmitted] = useState(false);
+  // 'sent': the form service accepted it. 'handoff': WhatsApp or email was
+  // opened with the enquiry, but the visitor still has to press Send there.
+  const [submitted, setSubmitted] = useState<false | 'sent' | 'handoff'>(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fallbackHref, setFallbackHref] = useState<string | null>(null);
+  const [botcheck, setBotcheck] = useState(false);
 
   const openingLine = () => {
     switch (lang) {
@@ -96,40 +100,55 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setIsSubmitting(true);
+    setFallbackHref(null);
 
-    // Preferred path: POST to a real form-to-email endpoint when one is set.
-    if (hasFormEndpoint) {
-      try {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            ...(FORM_ACCESS_KEY ? { access_key: FORM_ACCESS_KEY } : {}),
-            subject: `Pena Tools enquiry — ${formData.businessType || 'new'}`,
-            language: lang,
-            page: typeof window !== 'undefined' ? window.location.href : '',
-            ...formData,
-          }),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        setIsSubmitting(false);
-        setSubmitted(true);
-        return;
-      } catch {
-        // Fall through to the handoff so the enquiry is never silently dropped.
-      }
+    // Honeypot: hidden from people, ticked by form-filling bots.
+    if (botcheck) {
+      setSubmitted('sent');
+      return;
     }
 
-    const delivered = handoff(formData);
-    setIsSubmitting(false);
-    if (delivered) {
-      setSubmitted(true);
-    } else {
+    // No form service: hand off right away, still inside the click, so the
+    // browser lets the new tab open.
+    if (!hasFormEndpoint) {
+      if (handoff(formData)) setSubmitted('handoff');
+      else setError(t.ui.formErrorText);
+      return;
+    }
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          ...(FORM_ACCESS_KEY ? { access_key: FORM_ACCESS_KEY } : {}),
+          subject: `Pena Tools enquiry — ${formData.businessType || 'new'}`,
+          language: lang,
+          page: typeof window !== 'undefined' ? window.location.href : '',
+          ...formData,
+        }),
+      });
+      // Web3Forms can answer 200 with { success: false }.
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data?.success === false) throw new Error(`HTTP ${res.status}`);
+      setSubmitted('sent');
+    } catch {
+      // After an await the browser would block a pop-up, so rather than
+      // opening WhatsApp ourselves, offer it as a link with the enquiry in it.
       setError(t.ui.formErrorText);
+      setFallbackHref(
+        hasWhatsApp
+          ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(composeEnquiry(formData))}`
+          : hasEmail
+            ? `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Pena Tools enquiry')}&body=${encodeURIComponent(composeEnquiry(formData))}`
+            : null,
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -245,10 +264,10 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
                 >
                   <CheckCircle2 className="mx-auto h-10 w-10 text-emerald-700 dark:text-emerald-400 mb-3" />
                   <h4 className="text-base font-bold text-emerald-950 dark:text-emerald-200">
-                    {t.ui.inquiryReceived}
+                    {submitted === 'handoff' ? t.ui.handoffTitle : t.ui.inquiryReceived}
                   </h4>
                   <p className="mt-2 text-xs sm:text-sm text-emerald-900 dark:text-emerald-300 max-w-md mx-auto leading-relaxed">
-                    {t.contact.successMessage}
+                    {submitted === 'handoff' ? t.ui.handoffText : t.contact.successMessage}
                   </p>
                   <button
                     onClick={() => {
@@ -370,13 +389,37 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
                     />
                   </div>
 
+                  {/* Hidden from people; bots that fill every box tick it. */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    checked={botcheck}
+                    onChange={(e) => setBotcheck(e.target.checked)}
+                    className="absolute -left-[9999px] h-px w-px opacity-0"
+                  />
+
                   {error && (
-                    <p
+                    <div
                       role="alert"
                       className="rounded-lg border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40 px-3 py-2 text-xs font-medium text-red-800 dark:text-red-300"
                     >
-                      {error}
-                    </p>
+                      <p>{error}</p>
+                      {fallbackHref && (
+                        <a
+                          href={fallbackHref}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setSubmitted('handoff')}
+                          className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-emerald-700 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-700"
+                        >
+                          <MessageCircle className="h-3.5 w-3.5" aria-hidden="true" />
+                          <span>{t.ui.formFailedWa}</span>
+                        </a>
+                      )}
+                    </div>
                   )}
 
                   <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -395,6 +438,13 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
                       {t.ui.noSpam}
                     </span>
                   </div>
+
+                  <p className="text-[11px] text-slate-500 dark:text-stone-400">
+                    {t.ui.privacyNote}{' '}
+                    <a href="/privacy.html" className="underline underline-offset-2 hover:text-teal-800 dark:hover:text-teal-400">
+                      {t.ui.privacyLink}
+                    </a>
+                  </p>
 
                   {!hasFormEndpoint && (hasWhatsApp || hasEmail) && (
                     <p className="text-[11px] text-slate-500 dark:text-stone-400">

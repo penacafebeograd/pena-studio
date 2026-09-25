@@ -32,13 +32,28 @@ places between them. Neither was checked against anything, so both were
 removed rather than shipped — a wrong number sends customers to a stranger.
 The digits are deliberately not repeated here: this repository is public.
 
-### Contact form
+### Contact forms
 
-1. **Preferred:** set `VITE_FORM_ENDPOINT` (and `VITE_FORM_ACCESS_KEY` for
-   Web3Forms) as GitHub repo secrets. Formspree and Web3Forms both accept the
-   JSON POST this app sends, with no code change.
-2. **Fallback (active now):** submitting composes the enquiry and opens
-   WhatsApp — or `mailto:` — with the answers pre-filled. Nothing is dropped.
+Both forms, this app's and the "Brief Us" form on the homepage, use the
+same two repo secrets:
+
+1. Get a free access key at <https://web3forms.com> (it emails enquiries to
+   the address you sign up with).
+2. In GitHub: **Settings → Secrets and variables → Actions → New repository
+   secret**. Add `VITE_FORM_ENDPOINT` = `https://api.web3forms.com/submit`
+   and `VITE_FORM_ACCESS_KEY` = your key. (Formspree works too: put its form
+   URL in `VITE_FORM_ENDPOINT` and leave the key empty.)
+3. Push or re-run the deploy. The "Fill in the homepage form endpoint" step
+   logs whether an endpoint was set.
+
+The key ends up in the public page either way; form-to-email keys are made
+for that. The secrets just keep it out of the repository.
+
+Without an endpoint, submitting opens WhatsApp with the enquiry filled in,
+and the page says to press Send there (it no longer claims the enquiry was
+received). If a POST fails, the page offers a WhatsApp link with the
+enquiry, instead of opening a pop-up the browser would block. Both forms
+have a hidden honeypot checkbox (`botcheck`) and link to `/privacy.html`.
 
 The original form did neither: it ran a 500 ms `setTimeout`, showed
 "Inquiry Received!", and discarded the data.
