@@ -13,6 +13,8 @@ import { SalonDemo } from './demos/SalonDemo';
 import { GymDemo } from './demos/GymDemo';
 import { waLink } from '../config';
 import { pathFor } from '../routing';
+import { fill } from '../i18n';
+import { personal } from '../personalize';
 
 interface StandaloneDemoPageProps {
   demoType: 'salon' | 'gym';
@@ -39,8 +41,11 @@ export const StandaloneDemoPage: React.FC<StandaloneDemoPageProps> = ({
 }) => {
   const s = t.ui.standalone;
   const isSalon = demoType === 'salon';
+  const biz = personal.biz;
   const cta = waLink(
-    `${s.ctaButton} — ${isSalon ? s.salonSwitch : s.gymSwitch}`,
+    biz
+      ? fill(s.personalMessage, { biz })
+      : `${s.ctaButton} — ${isSalon ? s.salonSwitch : s.gymSwitch}`,
   );
 
   return (
@@ -182,10 +187,14 @@ export const StandaloneDemoPage: React.FC<StandaloneDemoPageProps> = ({
               </div>
               <div>
                 <span className="text-xs font-bold text-slate-900 dark:text-white block">
-                  {isSalon ? s.salonBanner : s.gymBanner}
+                  {biz
+                    ? fill(s.preparedFor, { biz })
+                    : isSalon
+                      ? s.salonBanner
+                      : s.gymBanner}
                 </span>
                 <span className="text-[11px] text-slate-500 dark:text-stone-400">
-                  {s.bannerNote}
+                  {biz ? s.preparedNote : s.bannerNote}
                 </span>
               </div>
             </div>

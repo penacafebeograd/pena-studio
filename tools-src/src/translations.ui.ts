@@ -88,6 +88,28 @@ export interface UiContent {
     ctaText: string;
     ctaButton: string;
     backToPricing: string;
+    preparedFor: string;
+    preparedNote: string;
+    personalMessage: string;
+  };
+  linkBuilder: {
+    title: string;
+    intro: string;
+    demo: string;
+    bizLabel: string;
+    bizPlaceholder: string;
+    staffLabel: string;
+    currencyLabel: string;
+    langLabel: string;
+    langVisitor: string;
+    yourLink: string;
+    copy: string;
+    copied: string;
+    open: string;
+    shareWa: string;
+    shareNeedsBiz: string;
+    /** Sent to the prospect, so it is picked by the demo's language, not the page's. */
+    shareMessage: string;
   };
 }
 
@@ -178,6 +200,28 @@ export const uiStrings: Record<Language, UiContent> = {
         'Delivered tomorrow for a single fixed fee of €250 – €750. No monthly subscriptions, no useless features, 100% owned by you.',
       ctaButton: 'Get yours in 24h',
       backToPricing: 'Back to full site & pricing',
+      preparedFor: 'Demo prepared for {biz}',
+      preparedNote: 'Sample data with your name on it. Your real app uses your own services, staff and prices.',
+      personalMessage: "Hi! I looked at the demo for {biz} and I'd like an app like this.",
+    },
+
+    linkBuilder: {
+      title: 'Personalised demo link',
+      intro: 'Fill in a business’s details and send them a demo with their own name on it.',
+      demo: 'Demo',
+      bizLabel: 'Business name',
+      bizPlaceholder: 'e.g. Salon Ana',
+      staffLabel: 'Staff names (salon, up to 3)',
+      currencyLabel: 'Prices in',
+      langLabel: 'Demo language',
+      langVisitor: 'Visitor’s own',
+      yourLink: 'Your link',
+      copy: 'Copy',
+      copied: 'Copied',
+      open: 'Open',
+      shareWa: 'Send on WhatsApp',
+      shareNeedsBiz: 'Add a business name to send it on WhatsApp.',
+      shareMessage: 'Hi! We made a quick demo app for {biz}. Everything is clickable, no sign-up needed: {url}',
     },
   },
 
@@ -268,6 +312,28 @@ export const uiStrings: Record<Language, UiContent> = {
         'Isporuka već sutra, po jednokratnoj fiksnoj ceni od €250 – €750. Bez mesečnih pretplata, bez nepotrebnih funkcija, 100% vaše.',
       ctaButton: 'Naručite za 24h',
       backToPricing: 'Nazad na sajt i cene',
+      preparedFor: 'Demo pripremljen za {biz}',
+      preparedNote: 'Primer podataka, sa vašim imenom. Prava aplikacija koristi vaše usluge, radnike i cene.',
+      personalMessage: 'Zdravo! Pogledao/la sam demo za {biz} i zanima me ovakva aplikacija.',
+    },
+
+    linkBuilder: {
+      title: 'Personalizovani demo link',
+      intro: 'Unesite podatke o biznisu i pošaljite im demo sa njihovim imenom.',
+      demo: 'Demo',
+      bizLabel: 'Naziv biznisa',
+      bizPlaceholder: 'npr. Salon Ana',
+      staffLabel: 'Imena radnika (salon, do 3)',
+      currencyLabel: 'Cene u',
+      langLabel: 'Jezik demoa',
+      langVisitor: 'Po posetiocu',
+      yourLink: 'Vaš link',
+      copy: 'Kopiraj',
+      copied: 'Kopirano',
+      open: 'Otvori',
+      shareWa: 'Pošalji na WhatsApp',
+      shareNeedsBiz: 'Unesite naziv biznisa da biste ga poslali na WhatsApp.',
+      shareMessage: 'Zdravo! Napravili smo kratak demo aplikacije za {biz}. Sve može da se isproba, bez registracije: {url}',
     },
   },
 
@@ -358,6 +424,28 @@ export const uiStrings: Record<Language, UiContent> = {
         'Yarın teslim, €250 – €750 arası tek seferlik sabit ücretle. Aylık abonelik yok, gereksiz özellik yok, %100 size ait.',
       ctaButton: '24 saatte sizin olsun',
       backToPricing: 'Siteye ve fiyatlara dön',
+      preparedFor: '{biz} için hazırlanan demo',
+      preparedNote: 'Örnek veriler, sizin adınızla. Gerçek uygulama kendi hizmetlerinizi, çalışanlarınızı ve fiyatlarınızı kullanır.',
+      personalMessage: 'Merhaba! {biz} için hazırlanan demoya baktım, böyle bir uygulama istiyorum.',
+    },
+
+    linkBuilder: {
+      title: 'Kişiye özel demo bağlantısı',
+      intro: 'Bir işletmenin bilgilerini girin, kendi adının yer aldığı bir demo gönderin.',
+      demo: 'Demo',
+      bizLabel: 'İşletme adı',
+      bizPlaceholder: 'örn. Salon Ana',
+      staffLabel: 'Çalışan adları (kuaför, en fazla 3)',
+      currencyLabel: 'Fiyatlar',
+      langLabel: 'Demo dili',
+      langVisitor: 'Ziyaretçiye göre',
+      yourLink: 'Bağlantınız',
+      copy: 'Kopyala',
+      copied: 'Kopyalandı',
+      open: 'Aç',
+      shareWa: 'WhatsApp ile gönder',
+      shareNeedsBiz: 'WhatsApp ile göndermek için işletme adını girin.',
+      shareMessage: 'Merhaba! {biz} için kısa bir demo uygulama hazırladık. Her şey tıklanabilir, kayıt gerekmez: {url}',
     },
   },
 };

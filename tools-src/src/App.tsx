@@ -15,6 +15,8 @@ import { InteractiveDemoModal } from './components/InteractiveDemoModal';
 import { StandaloneDemoPage } from './components/StandaloneDemoPage';
 import { ScrollProgress } from './components/ScrollProgress';
 import { DynamicSeo } from './components/DynamicSeo';
+import { LinkBuilder } from './components/LinkBuilder';
+import { personal } from './personalize';
 
 /**
  * Serbian is the default: the service sells to small businesses in Belgrade,
@@ -24,6 +26,10 @@ import { DynamicSeo } from './components/DynamicSeo';
  */
 const pickInitialLanguage = (): Language => {
   if (typeof window === 'undefined') return 'sr';
+
+  // A personalised demo link names the prospect's language; it wins for this
+  // visit but is not saved, so it never overrides a choice made on the page.
+  if (personal.lang) return personal.lang;
 
   try {
     const saved = localStorage.getItem('pena_lang');
@@ -75,6 +81,7 @@ export default function App() {
   }, [theme]);
 
   useEffect(() => {
+    if (personal.lang && lang === personal.lang) return;
     try {
       localStorage.setItem('pena_lang', lang);
     } catch {
@@ -140,6 +147,20 @@ export default function App() {
     setActiveDemo(null);
     pushRoute('home');
   };
+
+  if (route === 'link') {
+    return (
+      <>
+        <DynamicSeo lang={lang} page="link" />
+        <LinkBuilder
+          lang={lang}
+          onLanguageChange={setLang}
+          onNavigateHome={handleNavigateHome}
+          t={t}
+        />
+      </>
+    );
+  }
 
   // Direct visit to /tools/demo/salon or /tools/demo/gym.
   if (route === 'salon' || route === 'gym') {

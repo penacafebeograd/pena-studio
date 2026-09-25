@@ -97,3 +97,17 @@ Alternatifler dursun: `instagram-avatar-B.png` (teal zemin),
 3. Ekran kaydı: demoda 15 saniyede randevu girme
 
 Açıklamalar `instagram-captions.md` içinde, üç dilde.
+
+---
+
+## DM için kişiye özel demo linki
+
+Bir salona DM atmadan önce **`penastudio.cc/tools/link`** sayfasını aç: işletme
+adını (ve istersen çalışan adlarını) yaz, "WhatsApp ile gönder" ya da
+"Kopyala"ya bas. Salon, demoyu **kendi adıyla**, dinar fiyatlarıyla ve
+Sırpça açar. Oradan WhatsApp'a yazarsa mesajda salonun adı geçer — hangi DM'in
+müşteriye döndüğünü görürsün.
+
+Genel `penastudio.cc/tools` linki bio'da kalsın; kişiye özel link sadece
+birebir mesaj için.
+
