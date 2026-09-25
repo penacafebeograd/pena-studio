@@ -5,3 +5,4 @@ tools-src/.env.local
 
 # Build output — produced by .github/workflows/deploy.yml on every push.
 tools/
+tools-src/.ssr/
