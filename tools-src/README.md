@@ -74,6 +74,5 @@ so no consent banner. Nothing is emitted without a token.
 
 ## Known gaps
 
-- `public/og-image.jpg` is ~700 KB; worth compressing.
 - The demo businesses ("Studio Milena", "Iron & Kettle") are invented. The
   strongest replacement is a real client, once there is one.
