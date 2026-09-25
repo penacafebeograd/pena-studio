@@ -71,7 +71,7 @@ export const Footer: React.FC<FooterProps> = ({ t, lang, onLanguageChange }) => 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
           <div>
             © {new Date().getFullYear()} Pena Tools. {t.footer.rights}{' '}
-            <a href="/privacy.html" className="underline underline-offset-2 hover:text-teal-800 dark:hover:text-teal-400">
+            <a href="/privacy" className="underline underline-offset-2 hover:text-teal-800 dark:hover:text-teal-400">
               {t.ui.privacyLink}
             </a>
           </div>

@@ -51,7 +51,7 @@ jobs:
       - name: Stage the site
         run: |
           mkdir -p _site
-          cp index.html work.html privacy.html CNAME .nojekyll _site/
+          cp index.html work.html privacy.html robots.txt sitemap.xml llms.txt CNAME .nojekyll _site/
           cp -r assets _site/assets
           cp -r tools _site/tools
 
@@ -64,6 +64,7 @@ jobs:
       - name: Verify nothing is missing before publishing
         run: |
           for f in _site/index.html _site/work.html _site/privacy.html _site/CNAME \
+                   _site/robots.txt _site/sitemap.xml _site/llms.txt \
                    _site/assets/og-image.jpg _site/assets/hero-sparks.jpg \
                    _site/tools/index.html \
                    _site/tools/demo/salon/index.html \
@@ -71,6 +72,12 @@ jobs:
                    _site/tools/link/index.html; do
             test -f "$f" || { echo "MISSING: $f"; exit 1; }
           done
+          # /tools/ ships pre-rendered so crawlers that skip JavaScript see the
+          # copy; an empty root means the prerender step silently did nothing.
+          grep -q 'FAQPage' _site/tools/index.html \
+            || { echo "tools/index.html was not prerendered"; exit 1; }
+          ! grep -q '<div id="root"></div>' _site/tools/index.html \
+            || { echo "tools/index.html has an empty root"; exit 1; }
           test ! -d _site/tools-src || { echo "source leaked into the artifact"; exit 1; }
           test ! -d _site/node_modules || { echo "node_modules leaked into the artifact"; exit 1; }
           echo "Staged site:"; find _site -type f | sort

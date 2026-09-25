@@ -441,7 +441,7 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
 
                   <p className="text-[11px] text-slate-500 dark:text-stone-400">
                     {t.ui.privacyNote}{' '}
-                    <a href="/privacy.html" className="underline underline-offset-2 hover:text-teal-800 dark:hover:text-teal-400">
+                    <a href="/privacy" className="underline underline-offset-2 hover:text-teal-800 dark:hover:text-teal-400">
                       {t.ui.privacyLink}
                     </a>
                   </p>

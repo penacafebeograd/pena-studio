@@ -58,8 +58,17 @@
         "areaServed": ["Serbia", "Turkey", "Europe"],
         "knowsLanguage": ["en", "sr", "tr"],
         "url": "https://penastudio.cc/tools/",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Beograd",
+          "addressCountry": "RS"
+        },
+        "email": "penastudio@proton.me",
+        "telephone": "+381659565675",
+        "sameAs": ["https://www.instagram.com/penatools.rs/"],
         "parentOrganization": {
           "@type": "Organization",
+          "@id": "https://penastudio.cc/#org",
           "name": "Pena Studio",
           "url": "https://penastudio.cc/"
         },
@@ -87,14 +96,23 @@
         }
       }
     </script>
+    <!-- No hreflang: all three languages share this one URL, and hreflang
+         pointing every language at the same page is ignored by Google. Add it
+         back once each language has its own URL. -->
     <link rel="canonical" href="https://penastudio.cc/tools/" />
-    <link rel="alternate" hreflang="sr" href="https://penastudio.cc/tools/" />
-    <link rel="alternate" hreflang="en" href="https://penastudio.cc/tools/" />
-    <link rel="alternate" hreflang="tr" href="https://penastudio.cc/tools/" />
-    <link rel="alternate" hreflang="x-default" href="https://penastudio.cc/tools/" />
     <meta property="og:url" content="https://penastudio.cc/tools/" />
     <meta name="theme-color" content="#115e59" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0f1115" media="(prefers-color-scheme: dark)" />
+    <!-- The landing page ships pre-rendered (scripts/prerender.mjs). Set the
+         theme before first paint so dark-mode visitors don't see it flash
+         light while the app loads; same rule as App.tsx. -->
+    <script>
+      try {
+        var t = localStorage.getItem('pena_theme');
+        if (t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches))
+          document.documentElement.classList.add('dark');
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>
