@@ -24,6 +24,13 @@ import {
   plural,
 } from './demoStrings';
 import { fill } from '../../i18n';
+import {
+  formatAmount,
+  inCurrency,
+  money,
+  personalizeStrings,
+  withStaff,
+} from '../../personalize';
 
 export interface SalonBooking {
   id: string;
@@ -509,7 +516,7 @@ interface SalonDemoProps {
 }
 
 export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
-  const u = demoUi[lang].salon;
+  const u = personalizeStrings(demoUi[lang].salon);
   const dayIndex = (key: DayKey) => DAYS.findIndex((d) => d.key === key);
   const dayName = (key: DayKey, short = false) => {
     const i = dayIndex(key);
@@ -520,7 +527,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
   const count = (f: Parameters<typeof plural>[2], n: number) =>
     fill(plural(n, lang, f), { n });
   const svc = (v: string) => sample(SALON_SERVICES, v, lang);
-  const chair = (v: string) => sample(SALON_CHAIRS, v, lang);
+  const chair = (v: string) => withStaff(sample(SALON_CHAIRS, v, lang));
   const [selectedDay, setSelectedDay] = useState<DayKey>('wed');
   const [schedule, setSchedule] = useState<Record<DayKey, SalonBooking[]>>(INITIAL_SCHEDULE);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -540,11 +547,14 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
     let sum = 0;
     (Object.values(schedule) as SalonBooking[][]).forEach((bookings) => {
       bookings.forEach((b) => {
-        sum += b.price;
+        sum += inCurrency(b.price);
       });
     });
     const avg = Math.round(sum / 7);
-    const daySum = (schedule[selectedDay] || []).reduce((acc, b) => acc + b.price, 0);
+    const daySum = (schedule[selectedDay] || []).reduce(
+      (acc, b) => acc + inCurrency(b.price),
+      0,
+    );
     return { weekTotal: sum, dailyAverage: avg, activeDayTotal: daySum };
   }, [schedule, selectedDay]);
 
@@ -666,7 +676,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
           </div>
           <div className="mt-1.5 flex items-baseline gap-2">
             <span className="text-xl font-bold font-mono text-slate-900 dark:text-white">
-              €{weekTotal.toLocaleString()}
+              {formatAmount(weekTotal)}
             </span>
             <span className="text-[11px] text-emerald-700 dark:text-emerald-400 font-medium">
               {count(u.slotsFilled, 39)}
@@ -681,7 +691,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
           </div>
           <div className="mt-1.5 flex items-baseline gap-2">
             <span className="text-xl font-bold font-mono text-slate-900 dark:text-white">
-              €{dailyAverage}
+              {formatAmount(dailyAverage)}
               <span className="text-xs font-normal text-slate-500 dark:text-stone-400">{u.perDay}</span>
             </span>
             <span className="text-[11px] text-slate-500 dark:text-stone-400">{u.monSun}</span>
@@ -697,7 +707,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
           </div>
           <div className="mt-1.5 flex items-baseline gap-2">
             <span className="text-xl font-bold font-mono text-teal-950 dark:text-teal-100">
-              €{activeDayTotal}
+              {formatAmount(activeDayTotal)}
             </span>
             <span className="text-[11px] text-teal-800 dark:text-teal-300 font-medium">
               {count(u.appointments, currentBookings.length)}
@@ -843,7 +853,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
               >
                 {SALON_SERVICE_OPTIONS.map((o, i) => (
                   <option key={o.key} value={i}>
-                    {svc(o.key)} (€{o.price})
+                    {svc(o.key)} ({money(o.price)})
                   </option>
                 ))}
               </select>
@@ -991,7 +1001,7 @@ export const SalonDemo: React.FC<SalonDemoProps> = ({ lang = 'en' }) => {
               <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-2 border-t sm:border-t-0 pt-2.5 sm:pt-0 border-stone-100 dark:border-stone-800 shrink-0">
                 <div className="flex items-baseline gap-1.5">
                   <span className="text-base font-bold font-mono text-slate-900 dark:text-white">
-                    €{b.price}
+                    {money(b.price)}
                   </span>
                   <span className="text-[11px] text-teal-700 dark:text-teal-400 group-hover:underline hidden sm:inline">
                     {u.tapToChange}

@@ -19,6 +19,7 @@ import {
   MONTH_SHORT,
   plural,
 } from './demoStrings';
+import { money, personalizeStrings } from '../../personalize';
 import { fill } from '../../i18n';
 
 export interface GymMember {
@@ -124,7 +125,7 @@ interface GymDemoProps {
 }
 
 export const GymDemo: React.FC<GymDemoProps> = ({ lang = 'en' }) => {
-  const u = demoUi[lang].gym;
+  const u = personalizeStrings(demoUi[lang].gym);
   const plan = (v: string) => sample(GYM_PLANS, v, lang);
   const when = (v?: string) => dateish(v ?? '', lang);
   const shortDay = (i: number) => WEEKDAYS[lang].short[i];
@@ -509,7 +510,7 @@ export const GymDemo: React.FC<GymDemoProps> = ({ lang = 'en' }) => {
               >
                 {GYM_PLAN_OPTIONS.map((o, i) => (
                   <option key={o.key} value={i}>
-                    {plan(o.key)} (€{o.price})
+                    {plan(o.key)} ({money(o.price)})
                   </option>
                 ))}
               </select>
@@ -714,7 +715,7 @@ export const GymDemo: React.FC<GymDemoProps> = ({ lang = 'en' }) => {
                       onClick={() => handleRenewPass(m)}
                       className="rounded-lg bg-red-700 hover:bg-red-800 text-white px-3 py-1.5 text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
                     >
-                      {u.renewPass} (€35)
+                      {u.renewPass} ({money(35)})
                     </button>
                   </div>
                 ) : (

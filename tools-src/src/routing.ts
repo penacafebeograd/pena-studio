@@ -8,14 +8,18 @@
  * app and back to the Pena Studio homepage.
  */
 
-export type Route = 'home' | 'salon' | 'gym';
+export type Route = 'home' | 'salon' | 'gym' | 'link';
 
 /** '/tools/' in production, '/' in dev. Always has a trailing slash. */
 export const BASE = import.meta.env.BASE_URL || '/';
 
 /** Absolute URL path for a route, base included. */
 export const pathFor = (route: Route): string =>
-  route === 'home' ? BASE : `${BASE}demo/${route}`;
+  route === 'home'
+    ? BASE
+    : route === 'link'
+      ? `${BASE}link`
+      : `${BASE}demo/${route}`;
 
 export const routeFromPath = (pathname?: string): Route => {
   if (typeof window === 'undefined') return 'home';
@@ -27,10 +31,17 @@ export const routeFromPath = (pathname?: string): Route => {
 
   if (slug === 'demo/salon') return 'salon';
   if (slug === 'demo/gym') return 'gym';
+  if (slug === 'link') return 'link';
   return 'home';
 };
 
 export const pushRoute = (route: Route) => {
   if (typeof window === 'undefined') return;
-  window.history.pushState({}, '', pathFor(route));
+  // Switching between the two demos keeps a personalised link's query string
+  // (?biz=…), so the prospect's name stays on the page and in the URL.
+  const keep =
+    (route === 'salon' || route === 'gym') && routeFromPath() !== 'home'
+      ? window.location.search
+      : '';
+  window.history.pushState({}, '', pathFor(route) + keep);
 };

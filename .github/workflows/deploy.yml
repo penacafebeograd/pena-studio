@@ -3,7 +3,9 @@ name: Deploy penastudio.cc
 # Builds the Pena Tools app and publishes the whole site to GitHub Pages:
 #   /            -> existing Pena Studio landing page (index.html)
 #   /work.html   -> existing work page
+#   /assets/     -> images, icons and the share preview for those two pages
 #   /tools/      -> Pena Tools (built from tools-src/)
+#   /tools/link  -> personalised demo link builder (not linked, noindex)
 #
 # Only the staged _site directory is published, so neither the app source nor
 # node_modules ever reaches the public site.
@@ -49,14 +51,17 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html work.html CNAME .nojekyll _site/
+          cp -r assets _site/assets
           cp -r tools _site/tools
 
       - name: Verify nothing is missing before publishing
         run: |
           for f in _site/index.html _site/work.html _site/CNAME \
+                   _site/assets/og-image.jpg _site/assets/hero-sparks.jpg \
                    _site/tools/index.html \
                    _site/tools/demo/salon/index.html \
-                   _site/tools/demo/gym/index.html; do
+                   _site/tools/demo/gym/index.html \
+                   _site/tools/link/index.html; do
             test -f "$f" || { echo "MISSING: $f"; exit 1; }
           done
           test ! -d _site/tools-src || { echo "source leaked into the artifact"; exit 1; }

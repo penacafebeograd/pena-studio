@@ -54,7 +54,7 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
       case 'sr':
         return 'Zdravo, zanima me izrada jednostavne aplikacije za moj biznis.';
       case 'tr':
-        return 'Merhaba, isletmem icin 1 gunde sade bir uygulama yaptirmak istiyorum.';
+        return 'Merhaba, işletmem için 1 günde sade bir uygulama yaptırmak istiyorum.';
       default:
         return "Hi, I'm interested in building a simple 1-day app for my business.";
     }

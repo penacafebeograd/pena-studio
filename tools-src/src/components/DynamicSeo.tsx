@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Language } from '../types';
+import { isPersonalized, personal } from '../personalize';
 
 interface SectionMeta {
   title: string;
@@ -123,6 +124,7 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
 interface DynamicSeoProps {
   lang: Language;
   demoRoute?: 'salon' | 'gym' | null;
+  page?: 'link';
 }
 
 const DEMO_META: Record<Language, Record<'salon' | 'gym', SectionMeta>> = {
@@ -164,7 +166,15 @@ const DEMO_META: Record<Language, Record<'salon' | 'gym', SectionMeta>> = {
   },
 };
 
-export const DynamicSeo: React.FC<DynamicSeoProps> = ({ lang, demoRoute }) => {
+const LINK_TITLE: Record<Language, string> = {
+  en: 'Personalised demo link — Pena Tools',
+  sr: 'Personalizovani demo link — Pena Tools',
+  tr: 'Kişiye özel demo bağlantısı — Pena Tools',
+};
+
+const INDEXABLE = 'index, follow, max-image-preview:large';
+
+export const DynamicSeo: React.FC<DynamicSeoProps> = ({ lang, demoRoute, page }) => {
   const activeSectionRef = useRef<string>('hero');
 
   // Update HTML lang attribute and ensure absolute OG image URLs
@@ -204,9 +214,22 @@ export const DynamicSeo: React.FC<DynamicSeoProps> = ({ lang, demoRoute }) => {
       meta.setAttribute('content', content);
     };
 
+    // The link builder is a tool for us, and a personalised demo is one
+    // prospect's page: neither belongs in search results.
+    setMetaTag(
+      'name',
+      'robots',
+      page === 'link' || (demoRoute && isPersonalized()) ? 'noindex, nofollow' : INDEXABLE,
+    );
+
+    if (page === 'link') {
+      document.title = LINK_TITLE[lang];
+      return;
+    }
+
     if (demoRoute) {
       const info = DEMO_META[lang][demoRoute];
-      document.title = info.title;
+      document.title = personal.biz ? `${personal.biz} — ${info.title}` : info.title;
       setMetaTag('name', 'description', info.description);
       setMetaTag('property', 'og:title', info.title);
       setMetaTag('property', 'og:description', info.description);
@@ -294,7 +317,7 @@ export const DynamicSeo: React.FC<DynamicSeoProps> = ({ lang, demoRoute }) => {
     return () => {
       observer.disconnect();
     };
-  }, [lang, demoRoute]);
+  }, [lang, demoRoute, page]);
 
   return null;
 };

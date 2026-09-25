@@ -45,14 +45,40 @@ The original form did neither: it ran a 500 ms `setTimeout`, showed
 
 ## Routing
 
-Two client routes, both base-aware (`src/routing.ts`):
+Three client routes, all base-aware (`src/routing.ts`):
 
 - `/tools/demo/salon`
 - `/tools/demo/gym`
+- `/tools/link` (personalised link builder)
 
 GitHub Pages has no SPA rewrites, so `scripts/emit-routes.mjs` copies the built
 shell to those paths (plus `404.html`) after every build. Deep links and shared
 URLs therefore load a real file.
+
+## Personalised demo links
+
+A demo URL can carry a prospect's own details, so a salon owner opens a demo
+with their name on it instead of an invented business:
+
+```
+/tools/demo/salon?biz=Salon+Ana&staff=Ana,Jovana,Milica&cur=rsd&lang=sr
+```
+
+| Param   | Effect                                                         |
+| ------- | -------------------------------------------------------------- |
+| `biz`   | Replaces "Studio Milena" / "Iron & Kettle" everywhere, max 40 chars |
+| `staff` | Salon only: up to three names for the chairs, max 20 chars each |
+| `cur`   | `rsd` shows every price in dinars (≈117 RSD/€, rounded to 100)  |
+| `lang`  | `sr`, `en` or `tr`; wins for that visit, never saved            |
+
+The WhatsApp button on a personalised demo sends "I looked at the demo for
+{biz}…", so you know which link turned into an enquiry. Personalised pages
+are `noindex`, and switching between the salon and gym demo keeps the query.
+
+Build links at **`/tools/link`** instead of typing them: fill in the form, then
+copy the link or send it straight to WhatsApp with a message in the demo's
+language. That page is not linked from the site and is `noindex`. Code:
+`src/personalize.ts`, `src/components/LinkBuilder.tsx`.
 
 ## Language
 
@@ -74,6 +100,5 @@ so no consent banner. Nothing is emitted without a token.
 
 ## Known gaps
 
-- `public/og-image.jpg` is ~700 KB; worth compressing.
 - The demo businesses ("Studio Milena", "Iron & Kettle") are invented. The
   strongest replacement is a real client, once there is one.
