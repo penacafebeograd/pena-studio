@@ -7,7 +7,7 @@ Contact: penastudio@proton.me · WhatsApp +381 65 956 5675
 ## Products
 
 - [Pena Tools](https://penastudio.cc/tools/): Simple custom apps for salons, gyms, workshops and shops, such as appointment booking or member check-in. The client approves the screen designs first, and the app is built in one day. Fixed one-time price of €250–750, with no monthly subscription; the client owns the app and its data. Live demos: [salon booking](https://penastudio.cc/tools/demo/salon/), [gym member passes](https://penastudio.cc/tools/demo/gym/).
-- [Kreela](https://kreela.info/): A content studio that turns photos into on-brand, ready-to-publish social posts, with editing, scheduling and multilingual captions, for cafés and small brands. Launching soon.
+- [Kreela](https://kreela.info/): A platform for booking a café or small space in Belgrade by the hour, every week or for a whole day, for workshops, clubs, language exchanges, shoots and private events. The venue confirms within 24 hours and the price is shown up front. In beta; Pena Art Cafe is the first venue joining.
 - [Pena Art Cafe](https://www.penabeograd.art/): An art café in Belgrade with coffee, cocktails, comedy nights, weekly international meetups and a garden. Rated 5.0 from 65 Google reviews.
 - [ForaComedy.Club](https://foracomedy.club/): A free online community and PWA that lists every stand-up comedy night in Belgrade in one place.
 
