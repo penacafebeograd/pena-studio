@@ -47,9 +47,9 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
   },
   sr: {
     hero: {
-      title: 'Pena Tools — Jednostavne poslovne aplikacije za 1 dan',
+      title: 'Raspored termina za frizerske salone — Pena Tools',
       description:
-        'Jednostavne aplikacije po meri za salone, teretane, radionice i radnje. Gotove za 1 dan, fiksna cena, bez mesečnih pretplata.',
+        'Zajednički raspored termina po frizeru ili stolici za vaš salon. Isprobajte demo aplikacije po meri bez mesečne licence.',
     },
     problems: {
       title: 'Uobičajeni problemi u poslovanju — Pena Tools',
@@ -59,12 +59,12 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
     'how-it-works': {
       title: 'Kako radimo: prvo izgled, pa izrada — Pena Tools',
       description:
-        'Razgovor od 30 minuta, pa dva do tri gotova prikaza ekrana koje odobravate ili menjate. Tek kada kažete da je u redu, pravimo aplikaciju - i dobijate je sutradan.',
+        'Pokažite nam kako zakazujete. Pre izrade pogledajte predlog rasporeda i potvrdite cenu, obim i rok.',
     },
     demos: {
-      title: 'Interaktivni primeri uživo (Saloni i teretane) — Pena Tools',
+      title: 'Interaktivni demo rasporeda za salon — Pena Tools',
       description:
-        'Isprobajte interaktivne simulatore za zakazivanje u salonu i prijavu članova u teretani direktno u svom pretraživaču.',
+        'Isprobajte dnevni raspored po frizerima i dodajte probni termin u svom pretraživaču.',
     },
     pricing: {
       title: 'Transparentne cene (€250–€750) bez pretplate — Pena Tools',
@@ -74,12 +74,12 @@ const SECTION_METADATA: Record<Language, Record<string, SectionMeta>> = {
     faq: {
       title: 'Česta pitanja i odgovori — Pena Tools',
       description:
-        'Iskreni odgovori o roku od 24h, troškovima hostinga, izmenama, privatnosti podataka i radu bez tehničkog znanja.',
+        'Odgovori o unosu termina, roku isporuke, hostingu i podršci nakon isporuke.',
     },
     contact: {
       title: 'Kontaktirajte nas i zakažite demo — Pena Tools',
       description:
-        'Javite se direktno na WhatsApp ili pošaljite kratak opis vašeg posla. Skiciraćemo aplikaciju za par sati.',
+        'Na WhatsApp-u ili preko obrasca recite nam koliko vas radi i kako trenutno vodite termine.',
     },
   },
   tr: {

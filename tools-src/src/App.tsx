@@ -204,6 +204,7 @@ export default function App() {
       <main>
         <Hero
           t={t}
+          salonFirst={lang === 'sr'}
           onOpenSalonDemo={() => handleOpenDemoModal('salon')}
           onGetFreeDemo={handleGetFreeDemo}
         />
@@ -211,6 +212,7 @@ export default function App() {
         <HowItWorks t={t} onGetFreeDemo={handleGetFreeDemo} />
         <LiveDemos
           t={t}
+          salonOnly={lang === 'sr'}
           onOpenDemo={handleOpenDemoModal}
           onOpenStandalone={handleOpenStandalone}
         />
