@@ -84,7 +84,7 @@ export const StandaloneDemoPage: React.FC<StandaloneDemoPageProps> = ({
           {/* Salon / gym switcher */}
           <div
             role="tablist"
-            aria-label={t.demos.title}
+            aria-label={t.demos.eyebrow}
             className="flex items-center rounded-lg border border-stone-300 dark:border-stone-700 bg-stone-100 dark:bg-[#1c1e28] p-1 self-start md:self-center"
           >
             <button

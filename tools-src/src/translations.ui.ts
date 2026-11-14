@@ -236,7 +236,7 @@ export const uiStrings: Record<Language, UiContent> = {
   },
 
   sr: {
-    brandTagline: 'Aplikacije po meri, gotove za 1 dan',
+    brandTagline: 'Raspored termina za salone',
     live: 'Uživo',
     appearance: 'Izgled',
     lightMode: 'Svetla tema',
@@ -276,7 +276,7 @@ export const uiStrings: Record<Language, UiContent> = {
     snapBeardCut: 'Šišanje i brada',
     directUrl: 'Direktan link',
 
-    fixedFeeBadge: 'Fiksna cena za jednodnevni projekat',
+    fixedFeeBadge: 'Jednokratna cena izrade',
     freeKickoff: 'Razgovor i izgled besplatno • Plaćate tek kad odobrite',
     includedTitle: 'Šta je uključeno u cenu:',
     neverPayTitle: 'Šta nikada nećete plaćati:',
@@ -284,7 +284,7 @@ export const uiStrings: Record<Language, UiContent> = {
     fastestResponse: 'Najbrži odgovor',
     directWhatsApp: 'Direktno na WhatsApp',
     whatsappBlurb:
-      'Pošaljite kratku glasovnu ili običnu poruku o tome kako sada radite. Tokom dana odgovaram u roku od nekoliko minuta.',
+      'Pošaljite tekstualnu ili glasovnu poruku o tome kako trenutno vodite termine.',
     availability: 'Dostupan pon – sub, 08:30 – 19:30',
     inquiryReceived: 'Upit je primljen',
     sendAnother: 'Pošaljite još jednu poruku',
@@ -296,7 +296,7 @@ export const uiStrings: Record<Language, UiContent> = {
     formFailedWa: 'Pošaljite preko WhatsApp-a',
     handoffTitle: 'Još samo jedan korak',
     handoffText: 'WhatsApp je otvoren sa popunjenim upitom. Pritisnite Pošalji i upit stiže do mene.',
-    privacyNote: 'Vaše podatke koristim samo da vam odgovorim.',
+    privacyNote: 'Vaše podatke koristimo samo da vam odgovorimo.',
     privacyLink: 'Politika privatnosti',
 
     demo: {
@@ -324,8 +324,8 @@ export const uiStrings: Record<Language, UiContent> = {
       ctaTitle:
         'Želite alat napravljen tačno po vašoj svesci ili tabeli?',
       ctaText:
-        'Isporuka već sutra, po jednokratnoj fiksnoj ceni od €250 – €750. Bez mesečnih pretplata, bez nepotrebnih funkcija, 100% vaše.',
-      ctaButton: 'Naručite za 24h',
+        'Jednokratna cena od €250 do €750. Obim, tačnu cenu i rok potvrđujemo pre izrade.',
+      ctaButton: 'Zatražite ponudu',
       backToPricing: 'Nazad na sajt i cene',
       preparedFor: 'Demo pripremljen za {biz}',
       preparedNote: 'Primer podataka, sa vašim imenom. Prava aplikacija koristi vaše usluge, radnike i cene.',

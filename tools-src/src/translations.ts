@@ -267,28 +267,28 @@ export const translations: Record<Language, TranslationContent> = {
 
   sr: {
     nav: {
-      problem: 'Problem',
+      problem: 'Za salone',
       howItWorks: 'Kako funkcioniše',
-      demos: 'Primeri uživo',
+      demos: 'Demo',
       pricing: 'Cene',
       faq: 'Česta pitanja',
       contact: 'Kontakt',
       whatsappQuick: 'WhatsApp',
     },
     hero: {
-      badge: 'Napravljeno za lokalne preduzetnike i zanatlije',
-      headline: 'Vaš biznis, jedna jednostavna aplikacija, gotova za 1 dan.',
+      badge: 'Za frizerske i berberske salone',
+      headline: 'Svi termini vašeg salona na jednom mestu.',
       subheadline:
-        'Bez skupih mesečnih pretplata. Bez programa sa 50 dugmića koje niko ne koristi. Samo jednostavan, namenski softver za vaš salon, teretanu ili radionicu — isporučen sutra po fiksnoj ceni.',
-      ctaPrimary: 'Zatražite besplatan demo',
-      ctaSecondary: 'Pogledajte primere uživo',
+        'Kad klijent zakaže telefonom, preko Vibera ili Instagrama, upišite termin u zajednički raspored. Ceo tim vidi ko radi, kada je slobodan i šta je zakazano.',
+      ctaPrimary: 'Isprobajte demo za salon',
+      ctaSecondary: 'Razgovarajmo o vašem salonu',
       trustPoints: [
-        'Prvo odobrite izgled',
-        'Fiksna cena €250 – €750',
-        'Aplikacija je vaša — bez pretplate i ugovora',
+        'Raspored po frizeru ili stolici',
+        'Radi i na telefonu',
+        'Jednokratno €250–€750',
       ],
       appMockup: {
-        businessName: 'Studio Milena — Frizerski i kozmetički salon',
+        businessName: 'Studio Milena · demo salon',
         tagline: 'Dnevni raspored i zakazani termini',
         todaySummary: 'Raspored za sredu',
         confirmedBookings: '11 od 12 termina popunjeno',
@@ -296,7 +296,7 @@ export const translations: Record<Language, TranslationContent> = {
         nextAppointment: 'Sledeći za 20 min',
         statusConfirmed: 'Potvrđeno',
         statusInProgress: 'U stolici',
-        newBookingBtn: '+ Upiši termin',
+        newBookingBtn: 'Upišite termin',
         clientName1: 'Jelena Nikolić',
         service1: 'Pramenovi i feniranje • Ana (Stolica 1)',
         clientName2: 'Marko Petrović',
@@ -306,96 +306,96 @@ export const translations: Record<Language, TranslationContent> = {
       },
     },
     problems: {
-      eyebrow: 'Svakodnevne muke',
-      title: 'Alati koji vam troše vreme umesto da ga štede',
+      eyebrow: 'Raspored salona',
+      title: 'Jedan raspored za celu smenu',
       subtitle:
-        'Malim preduzećima ne treba komplikovan korporativni softver. Treba im samo nešto gde se termini ne gube i gde se radnici ne zbunjuju.',
+        'Pogledajte slobodne termine, upišite klijenta i ažurirajte raspored koji vidi ceo tim.',
       cards: [
         {
-          title: 'Sveske i rokovnici za zakazivanje',
+          title: 'Pogledajte ko je slobodan',
           description:
-            'Precrtani termini, iscepan papir i preklapanje klijenata kada dvoje radnika u isto vreme zakažu preko telefona.',
-          realQuote: '„Ko je precrtao termin u 16h?”',
+            'Proverite dnevni raspored po frizeru ili stolici dok razgovarate sa klijentom.',
+          realQuote: 'Raspored po frizeru ili stolici',
           iconType: 'paper',
         },
         {
-          title: 'Haos u WhatsApp i Viber porukama',
+          title: 'Upišite termin dok je dogovor svež',
           description:
-            'Zahtevi klijenata zatrpani među privatnim porukama, propušteni upiti i glasovne poruke koje morate slušati tri puta.',
-          realQuote: '„Čekaj, jesi li rekla petak ili subota?”',
+            'Kad se dogovorite preko telefona ili poruke, upišite vreme, uslugu i ime klijenta.',
+          realQuote: 'Ručni unos termina',
           iconType: 'whatsapp',
         },
         {
-          title: 'Eksel tabele koje niko ne ažurira',
+          title: 'Podelite promene sa timom',
           description:
-            'Počeli ste sa dobrom namerom, ali na telefonu ništa ne može da se klikne, formule su obrisane i odustali ste.',
-          realQuote: '„Tabela mi ponovo koči telefon.”',
+            'Kad pomerite termin, kolege vide novi raspored na telefonu, tabletu ili računaru.',
+          realQuote: 'Zajednički pregled',
           iconType: 'spreadsheet',
         },
       ],
     },
     howItWorks: {
       eyebrow: 'Jasna 4 koraka',
-      title: 'Kako funkcioniše: izgled vidite pre nego što se išta napravi',
+      title: 'Prvo vidite kako bi izgledao vaš raspored',
       subtitle:
-        'Bez beskrajnih sastanaka i nerazumljivih tehničkih termina. Kažete mi šta vodite, ja vam pokažem ekrane, i tek onda pravim aplikaciju.',
+        'Pokažite nam kako danas vodite termine. Predložićemo raspored za vaš tim i dogovoriti šta ulazi u cenu.',
       steps: [
         {
           stepNumber: '01',
-          title: 'Ispričate mi ideju',
+          title: 'Pokažete nam kako zakazujete',
           timeframe: 'Razgovor od 30 min',
           description:
-            'Kratak poziv ili WhatsApp razgovor. Pokažete mi vašu svesku, tabelu ili poruke i kažete mi šta vas najviše usporava.',
+            'Recite nam koliko vas radi u salonu, odakle stižu termini i šta danas najviše usporava zakazivanje.',
           details: [
             'Nije vam potrebno nikakvo tehničko predznanje',
-            'Pričamo normalnim jezikom o vašem radnom danu',
+            'Dovoljan je opis rasporeda bez podataka o klijentima',
             'Zajedno definišemo šta treba da stoji na ekranu',
           ],
         },
         {
           stepNumber: '02',
-          title: 'Šaljem vam izgled aplikacije',
-          timeframe: 'Isti dan',
+          title: 'Dobijate prikaz ekrana',
+          timeframe: 'Pre izrade',
           description:
-            'Dva do tri prava prikaza ekrana vaše aplikacije - vaše usluge, vaši radnici, vaše cene. Nije šablon, nego tačno ono što ćete dodirivati.',
+            'Pokazaćemo vam dva do tri ekrana sa rasporedom i uslugama vašeg salona.',
           details: [
-            '2-3 gotova ekrana, ne skice',
-            'Kao primer koriste se vaši podaci',
-            'Vidite sve pre nego što je napisana ijedna linija koda',
+            'Pregled dnevnog rasporeda',
+            'Primer unosa novog termina',
+            'Predlog obima, cene i roka',
           ],
         },
         {
           stepNumber: '03',
-          title: 'Tražite izmene',
-          timeframe: 'Isti dan',
+          title: 'Odobrite ponudu i izgled',
+          timeframe: 'Po dogovoru',
           description:
-            'Pomerite dugme, promenite naziv polja, izbacite ono što nikada nećete koristiti, dodajte ono što sam propustio. Izmene u ovoj fazi su besplatne i odmah vidljive.',
+            'Recite nam šta treba prilagoditi pre nego što počne izrada.',
           details: [
-            'Ništa se ne pravi dok vi ne kažete da je u redu',
-            'Izmena slike je jeftina, izmena gotove aplikacije nije',
-            'Ponavljamo dok ne bude tačno kako treba',
+            'Izmene prikaza u ovoj fazi su besplatne',
+            'Potvrđujete šta ulazi u fiksnu cenu',
+            'Potvrđujete datum isporuke',
           ],
         },
         {
           stepNumber: '04',
-          title: 'Dobijate je već sutradan',
-          timeframe: 'Sutradan',
+          title: 'Dobijate link za svoj tim',
+          timeframe: 'Nakon odobrenja',
           description:
-            'Kada odobrite izgled, izrada traje jedan dan. Dobijate privatni link, sačuvate ga na početni ekran i odmah počinjete sa radom.',
+            'Dobijate privatni link za telefon, tablet ili računar i kratko video-uputstvo za tim.',
           details: [
-            'Kratak video od 3 minuta koji objašnjava sve',
-            '14 dana besplatnih sitnih izmena uključeno',
-            'Podaci su u potpunosti vaši i privatni',
+            'Link možete dodati na početni ekran',
+            '14 dana manjih podešavanja uključeno',
+            'Nove funkcije dogovaramo posebno',
           ],
         },
       ],
     },
     demos: {
-      eyebrow: 'Pravi primeri',
-      title: 'Isprobajte uživo',
+      eyebrow: 'Interaktivni demo',
+      title: 'Isprobajte raspored na primeru salona',
       subtitle:
-        'Isprobajte prave aplikacije napravljene na ovaj način. Brze, jednostavne i jasne svakome iz prvog pokušaja.',
-      tryLiveBtn: 'Isprobaj uživo',
+        'Otvorite raspored i dodajte probni termin. Studio Milena i podaci u demou su izmišljeni.',
+      tryLiveBtn: 'Isprobajte demo',
       closeDemo: 'Zatvori primer',
       items: [
         {
@@ -403,16 +403,16 @@ export const translations: Record<Language, TranslationContent> = {
           title: 'Zakazivanje za salone',
           category: 'Frizerski, kozmetički i barber saloni',
           description:
-            'Dnevni raspored po stolicama/radnicima, brzo upisivanje klijenata jednim dodirom i pregled današnjeg pazara.',
+            'Pogledajte dnevni raspored po frizerima i isprobajte kako se unosi termin.',
           keyFeatures: [
-            'Upisivanje termina za 15 sekundi',
-            'Pregled po stolicama (nema preklapanja)',
-            'Istorijat klijenta sa formulama i beleškama',
-            'Radi direktno na telefonu ili tabletu salona',
+            'Unos termina, usluge i imena klijenta',
+            'Pregled termina po frizeru ili stolici',
+            'Status termina na istom ekranu',
+            'Pregled na telefonu i na pultu',
           ],
           previewStats: [
-            { label: 'Vreme za upis klijenta', value: '15 sekundi' },
-            { label: 'Potrebna obuka osoblja', value: '0 minuta' },
+            { label: 'Raspored u demou', value: '3 frizera' },
+            { label: 'Podaci u demou', value: 'Probni' },
           ],
         },
         {
@@ -435,18 +435,18 @@ export const translations: Record<Language, TranslationContent> = {
       ],
     },
     pricing: {
-      eyebrow: 'Poštene i jasne cene',
-      title: 'Jednokratna fiksna cena. Bez pretplate. Bez iznenađenja.',
+      eyebrow: 'Cena i rok',
+      title: 'Jednokratna izrada, bez mesečne licence',
       subtitle:
-        'Većina softverskih firmi naplaćuje 40€ do 120€ svakog meseca zauvek. Kod Pena Tools plaćate jednom i softver je vaš.',
+        'Fiksnu cenu i rok potvrđujemo pre izrade. Za osnovni raspored po frizeru, unos termina i pregled dana možemo dogovoriti izradu za jedan radni dan od odobrenja izgleda.',
       feeRange: '€250 – €750',
       feeLabel: 'Jednokratno ulaganje (u zavisnosti od obima aplikacije)',
-      reassuranceTitle: 'Vi ste vlasnik, nema vezivanja.',
+      reassuranceTitle: 'Domen, hosting i podrška',
       reassuranceText:
-        'Aplikacija radi na pouzdanoj globalnoj infrastrukturi. Trošak održavanja je najčešće 0€ (besplatni paketi) ili oko 10€ godišnje za vaš domen. Pena Tools vam nikada neće poslati mesečni račun za licencu.',
+        'Trošak domena i hostinga, ako ga ima, navodimo u ponudi. Manja podešavanja u prvih 14 dana su uključena. Kasnije izmene i nove funkcije dogovaramo posebno.',
       includedItems: [
-        'Kompletna aplikacija napravljena tačno po vašem poslu',
-        'Savršeno radi na mobilnom, tabletu i računaru',
+        'Raspored i funkcije prema dogovorenoj ponudi',
+        'Pristup na telefonu, tabletu i računaru',
         '2-3 gotova prikaza ekrana koje odobravate pre izrade',
         'Besplatne izmene izgleda dok ne budete zadovoljni',
         'Uvodni razgovor od 30 min, izrada čim odobrite',
@@ -460,57 +460,57 @@ export const translations: Record<Language, TranslationContent> = {
         'Nema blokiranja aplikacije',
         'Nema skrivenih troškova instalacije',
       ],
-      cta: 'Porazgovarajte o vašoj aplikaciji',
+      cta: 'Zatražite ponudu za salon',
     },
     faq: {
       eyebrow: 'Česta pitanja',
-      title: 'Otvoreni odgovori na uobičajena pitanja',
+      title: 'Šta treba da znate pre odluke',
       subtitle:
-        'Iskreni detalji kako biste tačno znali šta dobijate pre nego što se uopšte čujemo.',
+        'Kako stižu termini, šta utiče na rok i kako radi podrška posle isporuke.',
       items: [
         {
-          question: 'Kako je moguće napraviti aplikaciju za samo jedan dan?',
+          question: 'Da li klijenti moraju da promene način zakazivanja?',
           answer:
-            'Zato što su do početka izrade sve odluke već donete. Prvo odobrite dva do tri gotova prikaza ekrana, pa je dan izrade čisto izvođenje - bez nagađanja, bez prepravki, bez „a može li ovo ipak drugačije”. Dodajte na to da pravimo precizan alat za jednu dnevnu rutinu, a ne prekomplikovan program, i da nema agencijske birokratije - jedan fokusiran dan je sasvim dovoljan.',
+            'Klijenti mogu i dalje da zovu ili šalju poruke. Vaš tim upisuje dogovoreni termin u raspored. Osnovna verzija ne uvozi poruke automatski.',
         },
         {
           question: 'Šta ako mi kasnije zatrebaju izmene ili nove funkcije?',
           answer:
-            'Svaki projekat uključuje 14 dana besplatnih sitnih podešavanja (dodavanje novog radnika, promena naziva usluge, prilagođavanje teksta). Ako za par meseci poželite novu veliku funkciju, dogovaramo skroman fiksni iznos — bez skrivenih troškova.',
+            'Prvih 14 dana uključuje manja podešavanja, poput promene naziva usluge. Za kasnije izmene ili nove funkcije dajemo posebnu ponudu.',
         },
         {
-          question: 'Da li ja ili moji radnici moramo da znamo rad na računaru?',
+          question: 'Kada možete da isporučite raspored?',
           answer:
-            'Apsolutno ne. Suština Pena Tools-a je da aplikacija bude jednostavna kao slanje poruke. Ako vi i vaši radnici znate da koristite Viber ili WhatsApp, znaćete da koristite i ovu aplikaciju za manje od dva minuta.',
+            'Jedan radni dan možemo da dogovorimo za osnovni raspored, nakon što potvrdite izgled i obim. Za dodatne funkcije dobijate rok u ponudi.',
         },
         {
           question: 'Šta se dešava nakon isporuke? Gde aplikacija stoji?',
           answer:
-            'Aplikaciju postavljam na vrhunsku bezbednu cloud platformu (Cloudflare ili Vercel). Za 95% malih biznisa to je potpuno besplatno u okviru standardnih paketa. Ako želite svoj domen (npr. salon.rs), registracija domena je oko 10-15€ godišnje kod zvaničnog registra.',
+            'Tim dobija privatni link. U ponudi navodimo gde je aplikacija smeštena i da li postoji trošak domena ili hostinga.',
         },
         {
-          question: 'Gde se čuvaju podaci o mojim klijentima i pazaru?',
+          question: 'Ko ima pristup rasporedu i podacima?',
           answer:
-            'Podaci su isključivo vaši i privatni. Nalaze se u bezbednoj bazi kojoj pristupate samo vi i zaposleni kojima date pristup. U svakom trenutku možete jednim klikom preuzeti celu bazu u Eksel ili CSV formatu.',
+            'Pre izrade dogovaramo koje podatke čuvate, ko u timu ima pristup i kako izvozite podatke u Excel ili CSV.',
         },
       ],
     },
     contact: {
       eyebrow: 'Direktan kontakt',
-      title: 'Kažite mi šta želite da pratite',
+      title: 'Kako danas vodite termine u salonu?',
       subtitle:
-        'Bez prodajnih agenata i čekanja. Pričate direktno sa osobom koja će zaista napraviti vašu aplikaciju.',
-      whatsappBtn: 'Pišite mi na WhatsApp',
-      whatsappSub: 'Odgovor obično u roku od 1 sata tokom radnog vremena',
+        'Pošaljite nam koliko vas radi u smeni i kako stižu rezervacije. Javićemo vam koji raspored ima smisla za vaš tim.',
+      whatsappBtn: 'Pišite nam na WhatsApp',
+      whatsappSub: 'Dovoljna je kratka poruka o vašem salonu.',
       formTitle: 'Ili pošaljite poruku ovde',
       formSubtitle: 'Popunite ako više volite odgovor na mejl ili poziv.',
       fields: {
         name: 'Vaše ime',
         namePlaceholder: 'npr. Jelena Marković',
-        businessType: 'Delatnost',
-        businessTypePlaceholder: 'npr. Frizerski salon, Teretana, Auto-servis...',
-        trackingNow: 'Šta trenutno koristite za evidenciju?',
-        trackingNowPlaceholder: 'npr. Papirna sveska, poruke na telefonu, Eksel...',
+        businessType: 'Naziv salona',
+        businessTypePlaceholder: 'npr. Salon Ana',
+        trackingNow: 'Kako trenutno upisujete termine?',
+        trackingNowPlaceholder: 'npr. Telefon i Viber, pa upis u svesku',
         contactMethod: 'Telefon / WhatsApp ili E-mail',
         contactMethodPlaceholder: '+381 64 ... ili ime@domen.rs',
         notes: 'Šta vas trenutno najviše usporava? (Opciono)',
@@ -518,12 +518,13 @@ export const translations: Record<Language, TranslationContent> = {
         submitBtn: 'Pošaljite upit',
       },
       successMessage:
-        'Hvala na poruci! Primio sam vaš upit i javiću vam se uskoro (najčešće u roku od 2-3 sata).',    },
+        'Hvala na poruci! Javićemo vam se na kontakt koji ste ostavili.',
+    },
     footer: {
       tagline:
-        'Pena Tools — jednostavan i pošten softver za lokalne preduzetnike, gotov za 1 dan.',
+        'Pena Tools — raspored termina po meri vašeg salona.',
       rights: 'Sva prava zadržana.',
-      locationNote: 'Napravljeno u Beogradu za lokalne biznise širom sveta.',
+      locationNote: 'Napravljeno u Beogradu.',
     },
   },
 

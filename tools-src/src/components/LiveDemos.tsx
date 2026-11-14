@@ -6,12 +6,14 @@ import { FadeIn } from './FadeIn';
 
 interface LiveDemosProps {
   t: Content;
+  salonOnly: boolean;
   onOpenDemo: (type: 'salon' | 'gym') => void;
   onOpenStandalone?: (type: 'salon' | 'gym') => void;
 }
 
 export const LiveDemos: React.FC<LiveDemosProps> = ({
   t,
+  salonOnly,
   onOpenDemo,
   onOpenStandalone,
 }) => {
@@ -32,7 +34,7 @@ export const LiveDemos: React.FC<LiveDemosProps> = ({
         </FadeIn>
 
         {/* Two Large Clickable Preview Cards */}
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className={`mt-8 grid grid-cols-1 gap-8 ${salonOnly ? 'max-w-2xl' : 'lg:grid-cols-2'}`}>
           {/* Card 1: Salon Booking Demo */}
           <FadeIn delay={0} className="h-full">
             <div
@@ -163,7 +165,7 @@ export const LiveDemos: React.FC<LiveDemosProps> = ({
           </FadeIn>
 
           {/* Card 2: Gym Membership Demo */}
-          <FadeIn delay={150} className="h-full">
+          {!salonOnly && <FadeIn delay={150} className="h-full">
             <div
               id="demo-card-gym"
               className="group flex flex-col justify-between rounded-2xl border border-stone-300 dark:border-stone-800 bg-[#fbfbf9] dark:bg-[#181a24] p-6 sm:p-7 shadow-xs hover:border-teal-700/40 dark:hover:border-teal-500/40 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-300 ease-out h-full"
@@ -289,7 +291,7 @@ export const LiveDemos: React.FC<LiveDemosProps> = ({
                 </div>
               </div>
             </div>
-          </FadeIn>
+          </FadeIn>}
         </div>
       </div>
     </section>

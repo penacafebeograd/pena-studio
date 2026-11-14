@@ -11,12 +11,14 @@ import { FadeIn } from './FadeIn';
 
 interface HeroProps {
   t: Content;
+  salonFirst: boolean;
   onOpenSalonDemo: () => void;
   onGetFreeDemo: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
   t,
+  salonFirst,
   onOpenSalonDemo,
   onGetFreeDemo,
 }) => {
@@ -46,7 +48,7 @@ export const Hero: React.FC<HeroProps> = ({
             {/* CTAs */}
             <div className="mt-7 flex flex-wrap items-center gap-3">
               <button
-                onClick={onGetFreeDemo}
+                onClick={salonFirst ? onOpenSalonDemo : onGetFreeDemo}
                 id="hero-primary-cta"
                 className="inline-flex items-center justify-center gap-2 rounded-lg bg-teal-800 dark:bg-teal-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all hover:bg-teal-900 dark:hover:bg-teal-600 active:scale-[0.99] cursor-pointer"
               >
@@ -55,12 +57,14 @@ export const Hero: React.FC<HeroProps> = ({
               </button>
 
               <button
-                onClick={onOpenSalonDemo}
+                onClick={salonFirst ? onGetFreeDemo : onOpenSalonDemo}
                 id="hero-secondary-cta"
                 className="inline-flex items-center justify-center gap-2 rounded-lg border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-800 px-4 py-3 text-sm font-semibold text-slate-700 dark:text-stone-200 shadow-2xs transition-all hover:bg-stone-50 dark:hover:bg-stone-700 hover:text-slate-900 dark:hover:text-white cursor-pointer"
               >
                 <span>{t.hero.ctaSecondary}</span>
-                <span className="text-xs rounded bg-teal-100 dark:bg-teal-900/60 text-teal-800 dark:text-teal-300 px-1.5 py-0.5 font-mono">{t.ui.live}</span>
+                {!salonFirst && (
+                  <span className="text-xs rounded bg-teal-100 dark:bg-teal-900/60 text-teal-800 dark:text-teal-300 px-1.5 py-0.5 font-mono">{t.ui.live}</span>
+                )}
               </button>
             </div>
 
@@ -88,12 +92,16 @@ export const Hero: React.FC<HeroProps> = ({
                   <span className="h-2.5 w-2.5 rounded-full bg-stone-300 dark:bg-stone-700"></span>
                 </div>
                 <div className="flex items-center gap-1.5 rounded-md border border-stone-200 dark:border-stone-700 bg-white dark:bg-[#1a1d26] px-3 py-0.5 text-[11px] font-mono text-slate-500 dark:text-stone-400">
-                  <span className="text-teal-600 dark:text-teal-400 font-semibold">https://</span>
-                  <span>app.studiomilena.rs</span>
+                  {salonFirst ? 'Demo raspored' : (
+                    <>
+                      <span className="text-teal-600 dark:text-teal-400 font-semibold">https://</span>
+                      <span>app.studiomilena.rs</span>
+                    </>
+                  )}
                 </div>
                 <div className="flex items-center gap-1.5 text-[11px] text-teal-700 dark:text-teal-400 font-medium">
                   <span className="h-2 w-2 rounded-full bg-teal-600 dark:bg-teal-400 animate-pulse"></span>
-                  <span>{t.ui.live}</span>
+                  <span>{salonFirst ? 'Probni podaci' : t.ui.live}</span>
                 </div>
               </div>
 

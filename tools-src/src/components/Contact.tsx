@@ -56,7 +56,7 @@ export const Contact: React.FC<ContactProps> = ({ t, lang }) => {
   const openingLine = () => {
     switch (lang) {
       case 'sr':
-        return 'Zdravo, zanima me izrada jednostavne aplikacije za moj biznis.';
+        return 'Zdravo, zanima me zajednički raspored termina za moj salon.';
       case 'tr':
         return 'Merhaba, işletmem için 1 günde sade bir uygulama yaptırmak istiyorum.';
       default:
