@@ -54,6 +54,7 @@ jobs:
           cp index.html work.html privacy.html robots.txt sitemap.xml llms.txt CNAME .nojekyll _site/
           cp -r assets _site/assets
           cp -r tools _site/tools
+          cp -r mapped-ages _site/mapped-ages
 
       - name: Fill in the homepage form endpoint
         env:
@@ -66,6 +67,8 @@ jobs:
           for f in _site/index.html _site/work.html _site/privacy.html _site/CNAME \
                    _site/robots.txt _site/sitemap.xml _site/llms.txt \
                    _site/assets/og-image.jpg _site/assets/hero-sparks.jpg \
+                   _site/mapped-ages/support/index.html _site/mapped-ages/privacy/index.html \
+                   _site/mapped-ages/pages.css \
                    _site/tools/index.html \
                    _site/tools/demo/salon/index.html \
                    _site/tools/demo/gym/index.html \
